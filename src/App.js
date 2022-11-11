@@ -3,6 +3,7 @@ import { Main } from './components/main';
 import { TopManga } from './components/top-manga';
 
 import { Routes, Route } from 'react-router-dom'
+import { MangaItem } from './components/manga-item';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path="/top" element={<TopManga />} />
+            <Route path='/:id'  element={<MangaItem />}/>
         </Routes>
     </div>
       

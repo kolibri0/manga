@@ -1,5 +1,6 @@
 import axios from "axios"
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 
 import '../components/home.css'
@@ -56,14 +57,14 @@ import '../components/paginate.css'
                 {items && items.map((res, i) => (
                     <div className="contain-item" key={i}>
                         <div className="name-item">
-                            <img className="img-item" src={res.images.jpg.image_url} alt="" />
+                        <Link to={'/' + res.mal_id}><img className="img-item" src={res.images.jpg.image_url} alt="" /></Link> 
                         </div>
                         <div className="description-item">
-                            <div>
+                            <Link to={'/' + res.mal_id}>
                                 <div className="name-item">
-                                {res?.title.length > 40 ? res?.title.slice(0,40) + '...' : res?.title}
-                            </div>
-                            </div>
+                                    {res?.title.length > 40 ? res?.title.slice(0,40) + '...' : res?.title}
+                                </div>
+                            </Link>
                             
                             <div className="genres">
                                 {res.genres[0] && <p className="genre">{res.genres[0]?.name}</p>}
