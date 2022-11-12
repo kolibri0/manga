@@ -46,8 +46,11 @@
     font-size: 18px;
     word-break: break-all;
     color: #8B2F20;
-    text-decoration: none;
     cursor: pointer;
+    text-decoration: none;
+}
+.name-item:hover{
+    text-decoration: underline;
 }
 .genres{
     display: flex;

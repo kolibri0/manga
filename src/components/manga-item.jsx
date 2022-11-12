@@ -66,7 +66,6 @@ export const MangaItem = () => {
     axios.get(`https://api.jikan.moe/v4/manga/${id}/characters`).then((res) =>setCharacters(res.data.data))
    }
 
-
     return ( 
         <div className='manga-item'>
             <div className='manga-item-content'>
@@ -102,7 +101,7 @@ export const MangaItem = () => {
                                 </div>
                             </div>
                         ): null)
-                        }
+                    }
                 </Slider>
             </div>    
 
@@ -124,9 +123,9 @@ export const MangaItem = () => {
                                     {Array(res.character.name).map((res) => res.split(',').join(' '))}
                                 </div>
                                 <div>Role: {res.role}</div>
-                                <div>
+                                <Link to={'/character/' + res.character.mal_id }>
                                     <div className="character-name">More</div>
-                                </div>
+                                </Link>
                                 </div>
                         )}
                     </div>    

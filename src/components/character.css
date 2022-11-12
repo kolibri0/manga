@@ -1,0 +1,15 @@
+.character-img{
+    height: 254px;
+    width: 365px;
+    border-radius: 10px;
+    margin: 0 auto;
+    display: block;
+}
+.person-name{
+    text-align: center;
+    color: #8B2F20;
+}
+.character-description{
+    margin-top: 10px;
+    font-size: 20px;
+}

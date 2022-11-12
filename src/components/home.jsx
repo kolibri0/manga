@@ -2,6 +2,7 @@ import axios from "axios"
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import debounce from 'lodash.debounce';
 
 import '../components/home.css'
 import '../components/paginate.css'
@@ -38,6 +39,9 @@ import '../components/paginate.css'
     const searchManga = (e) => {
         setLetter(e.target.value)
     }
+    const debouncedChangeHandler = React.useCallback(
+        debounce(searchManga, 500)
+    ,[]);
 
 
     const handlePageClick = (event) => {
@@ -47,7 +51,7 @@ import '../components/paginate.css'
 
     return (
         <div className="container">
-            <input className="search-input" type="text" placeholder="Enter manga name..." onChange={(e) => searchManga(e)}/>
+            <input className="search-input" type="text" placeholder="Enter manga name..." onChange={debouncedChangeHandler}/>
 
             <select className="select" value={select} defaultValue={options[1]} onChange={(e) => setSelect(e.target.value)}>
                 {options.map((res)=> <option key={res.label} value={res.value}>{res.label}</option>)}
@@ -57,13 +61,14 @@ import '../components/paginate.css'
                 {items && items.map((res, i) => (
                     <div className="contain-item" key={i}>
                         <div className="name-item">
-                        <Link to={'/' + res.mal_id}><img className="img-item" src={res.images.jpg.image_url} alt="" /></Link> 
+                            <Link to={'/' + res.mal_id}>
+                                <img className="img-item" src={res.images.jpg.image_url} alt="" />
+                            </Link> 
                         </div>
                         <div className="description-item">
-                            <Link to={'/' + res.mal_id}>
-                                <div className="name-item">
-                                    {res?.title.length > 40 ? res?.title.slice(0,40) + '...' : res?.title}
-                                </div>
+                            
+                            <Link to={'/' + res.mal_id} className="name-item">
+                                {res?.title.length > 40 ? res?.title.slice(0,40) + '...' : res?.title}
                             </Link>
                             
                             <div className="genres">

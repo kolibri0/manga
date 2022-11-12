@@ -1,9 +1,10 @@
 import axios from "axios"
 import React from 'react';
 import ReactPaginate from 'react-paginate';
+import { Link } from 'react-router-dom';
+
 
 import '../components/home.css'
-
 
  export const TopManga = () => {
 
@@ -33,14 +34,15 @@ import '../components/home.css'
                 {items && items.map((res, i) => (
                     <div className="contain-item" key={i}>
                         <div className="name-item">
-                            <img className="img-item" src={res.images.jpg.image_url} alt="" />
+                            <Link to={'/' + res.mal_id}>
+                                <img className="img-item" src={res.images.jpg.image_url} alt="" />
+                            </Link> 
                         </div>
                         <div className="description-item">
-                            <div>
-                                <div className="name-item">
+                            
+                            <Link to={'/' + res.mal_id} className="name-item">
                                 {res?.title.length > 40 ? res?.title.slice(0,40) + '...' : res?.title}
-                            </div>
-                            </div>
+                            </Link>
                             
                             <div className="genres">
                                 {res.genres[0] && <p className="genre">{res.genres[0]?.name}</p>}
