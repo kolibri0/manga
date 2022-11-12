@@ -1,59 +1,72 @@
-import axios from "axios"
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import debounce from 'lodash.debounce';
+
+import { useSelector, useDispatch } from 'react-redux'
+import { setLetter, setSelected, setSelectedPage } from "../store/manga-items/manga-home";
 
 import '../components/home.css'
 import '../components/paginate.css'
+import { getMangaHome } from "../store/featch-manga.js/featch-manga";
 
+export const Home = () => {
 
- export const Home = () => {
+    //selected option (manga type)
+    const selected = useSelector(state => state.mangaSlice.selected)
+    //for search manga by words
+    const letter = useSelector(state => state.mangaSlice.letter)
+    //all page count
+    const allPage = useSelector(state => state.featchMangaSlice.allPage)
+    //selected page
+    const selectedPage = useSelector(state => state.mangaSlice.selectedPage)
 
+    const items = useSelector(state => state.featchMangaSlice.manga)
+    
+    const dispatch = useDispatch()
+
+    //manga type
     const options = [
         { value: '', label: 'All' },
         { value: 'manga', label: 'Manga' },
         { value: 'novel', label: 'Novel' },
         { value: 'lightnovel', label: 'Lightnovel' },
         { value: 'oneshot', label: 'Oneshot' },
-        { value: 'doujin', label: 'Doujin' },
+        { value: 'douji n', label: 'Doujin' },
         { value: 'manhwa', label: 'Manhwa' },
         { value: 'manhua', label: 'Manhua' }
     ]
 
-    const [items, setItems] = React.useState([])
-    const [letter, setLetter] = React.useState('')
-    const [select, setSelect] = React.useState('') 
-    const [pages, setPages] = React.useState(0)
-    const [pagesSelect, setPagesSelect] = React.useState(1)
-
+    // const [items, setItems] = React.useState([])
 
     React.useEffect(() => {
-      axios.get(`https://api.jikan.moe/v4/manga?page=${pagesSelect}&letter=${letter}&type=${select}&genres_exclude=12,28,26&limit=24`).then((res) => {
-        setItems(res.data.data)
-        setPages(res.data.pagination.last_visible_page)
-        })
+        dispatch(getMangaHome({selected, letter, selectedPage}))
+    }, [selectedPage, selected, letter ])
 
-    }, [pagesSelect, letter, select])
+    React.useEffect(() => {
+        dispatch(setSelectedPage(1))
+    }, [])
     
+    //dispatch logic/////////////////////////////////////////////////////
+
+    //search manga by word
     const searchManga = (e) => {
-        setLetter(e.target.value)
+        dispatch(setLetter(e.target.value))
     }
-    const debouncedChangeHandler = React.useCallback(
-        debounce(searchManga, 500)
-    ,[]);
-
-
+    //check page 
     const handlePageClick = (event) => {
-        setPagesSelect(event.selected + 1)
+        dispatch(setSelectedPage(event.selected + 1))
     };
-
+    //select option 
+    const setSelect = (e) =>{  
+        dispatch(setSelected(e.target.value))
+    } 
+    //dispatch logic end/////////////////////////////////////////////////////
 
     return (
         <div className="container">
-            <input className="search-input" type="text" placeholder="Enter manga name..." onChange={debouncedChangeHandler}/>
-
-            <select className="select" value={select} defaultValue={options[1]} onChange={(e) => setSelect(e.target.value)}>
+            <input className="search-input" type="text" placeholder="Enter manga name..." onChange={e =>searchManga(e)}/>
+            
+            <select className="select" defaultValue={options[1]} onChange={(e) => setSelect(e)}>
                 {options.map((res)=> <option key={res.label} value={res.value}>{res.label}</option>)}
             </select>
 
@@ -89,7 +102,7 @@ import '../components/paginate.css'
             nextLabel=">"
             onPageChange={handlePageClick}
             pageRangeDisplayed={8}
-            pageCount={pages}
+            pageCount={allPage}
             previousLabel="<"
             renderOnZeroPageCount={null}
             />

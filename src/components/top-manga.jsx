@@ -3,28 +3,31 @@ import React from 'react';
 import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
 
+import { useSelector, useDispatch } from 'react-redux'
+import { getMangaTop } from "../store/featch-manga.js/featch-manga";
+import { setAllPage, setSelectedPage } from "../store/manga-items/manga-home";
 
 import '../components/home.css'
 
- export const TopManga = () => {
 
-    const [items, setItems] = React.useState([])
-    const [pagesSelect, setPagesSelect] = React.useState(1)
-    const [pages, setPages] = React.useState(0)
+ export const TopManga = () => {
+    const dispatch = useDispatch()
+
+    const items = useSelector(state => state.featchMangaSlice.manga)
+    const selectedPage = useSelector(state => state.mangaSlice.selectedPage)
+    const allPage = useSelector(state => state.featchMangaSlice.allPage)
 
 
     React.useEffect(() => {
-      axios.get(`https://api.jikan.moe/v4/top/manga?page=${pagesSelect}&limit=24&`).then((res) => {
-        setItems(res.data.data)
-        setPages(res.data.pagination.last_visible_page)
-        })
+        dispatch(getMangaTop({selectedPage}))
+    }, [selectedPage])
 
-    }, [pagesSelect])
+    React.useEffect(()=>{
+        dispatch(setSelectedPage(1)) 
+    },[])
     
-
-
     const handlePageClick = (event) => {
-        setPagesSelect(event.selected + 1) 
+        dispatch(setSelectedPage(event.selected + 1)) 
     };
 
 
@@ -62,7 +65,7 @@ import '../components/home.css'
             nextLabel=">"
             onPageChange={handlePageClick}
             pageRangeDisplayed={8}
-            pageCount={pages}
+            pageCount={allPage}
             previousLabel="<"
             renderOnZeroPageCount={null}
             />
