@@ -1,17 +1,22 @@
-import axios from "axios";
 import React from "react"
 import { Link, useParams } from 'react-router-dom';
 
-import Slider from "react-slick";
+import { useSelector, useDispatch } from 'react-redux'
 
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import '../components/manga-item.css'
+import { getMangaItem, getMangaRecomendation } from "../store/manga-item/get-manga-item";
+import { getMangaItemCharacters, getMangaItemMore, setCharacters, setMoreInfo } from "../store/manga-item/get-more-manga-item";
+
 
 
 
 
 export const MangaItem = () => {
+    const dispatch = useDispatch()
+
     var settings = {
         dots: true,
         infinite: false,
@@ -45,28 +50,27 @@ export const MangaItem = () => {
             }
           }
         ]
-      };
-
+    };
 
     let { id } = useParams()
-    const [item, setItem] = React.useState({})
-    const [characters, setCharacters] = React.useState([])
-    const [moreInfo, setMoreInfo] = React.useState({})
-    const [recomendation, setRecomendation] = React.useState([])
+    const item = useSelector(state => state.featchMangaItemSlice.mangaItem)
+    const recomendation = useSelector(state => state.featchMangaItemSlice.recomendation)
+    const characters = useSelector(state => state.featchMangaItemMoreSlice.characters)
+    const moreInfo = useSelector(state => state.featchMangaItemMoreSlice.moreInfo)
     
     React.useEffect(()=>{
-        setCharacters([])
-        setMoreInfo({})
-        axios.get(`https://api.jikan.moe/v4/manga/${id}`).then((res)=> setItem(res.data.data))
-        axios.get(`https://api.jikan.moe/v4/manga/${id}/recommendations`).then((res) => setRecomendation(res.data.data))
+        dispatch(setCharacters([]))
+        dispatch(setMoreInfo({}))
+        dispatch(getMangaItem({id}))
+        dispatch(getMangaRecomendation({id}))
     }, [id])
     
    const getMoreInfo = () =>{
-    axios.get(`https://api.jikan.moe/v4/manga/${id}/moreinfo`).then((res) => setMoreInfo(res.data.data))
-    axios.get(`https://api.jikan.moe/v4/manga/${id}/characters`).then((res) =>setCharacters(res.data.data))
+        dispatch(getMangaItemMore({id}))
+        dispatch(getMangaItemCharacters({id}))
    }
-
     return ( 
+        
         <div className='manga-item'>
             <div className='manga-item-content'>
                 <img className='manga-img-item' src={item.images?.jpg?.image_url} alt="" />
@@ -76,14 +80,13 @@ export const MangaItem = () => {
                     <div className="score">Score: {item.score}</div>
                     <div>{item.chapters &&  <div>Chapters: {item.chapters}</div>}</div>
                     <div className="status">{item.status}</div>
-                    <div className="year">Published {item.published?.prop.from.day}.{item.published?.prop.from.month}.{item.published?.prop.from.year}</div>
+                    <div className="year">Published {item?.published?.prop.from.day}.{item.published?.prop.from.month}.{item.published?.prop.from.year}</div>
                     <div className='type'>{item.genres && item.genres.map((res) => <div className='type-item' key={res.name}>{res.name}</div>)}</div>
                     <div className="description">Description:</div>
                     <div className="description-title">{item.synopsis}</div>
                     <hr />
                 </div>
             </div>
-
 
             <div>
                 {recomendation[0] && <div className="another">Another</div>}
@@ -93,7 +96,7 @@ export const MangaItem = () => {
                             <div className="card">
                                 <div className="card-top">
                                 <Link className="name-item" to={'/' + res.entry.mal_id}>
-                                        <img className="recomendation-img" src={res.entry.images.jpg.image_url} alt="" />
+                                        <img className="recomendation-img" src={res.entry?.images.jpg.image_url} alt="" />
                                 </Link>
                                 </div>
                                 <div className="card-bottom">
@@ -104,9 +107,7 @@ export const MangaItem = () => {
                     }
                 </Slider>
             </div>    
-
             <button className="more" onClick={() => getMoreInfo()}>More info</button>  
-
             <div>
                 <div className="more-info">
                     {moreInfo.moreinfo}
@@ -114,10 +115,10 @@ export const MangaItem = () => {
                 <div>
                 {characters && characters[0] &&<div className="character-text">Characters</div>}
                     <div className="characters">
-                        {characters && characters.map((res)=> 
+                        {characters ? characters.map((res)=> 
                             <div className="character">
                                 <div>
-                                    <img className="img-character" src={res.character.images.jpg.image_url} alt="" />
+                                    <img className="img-character" src={res.character?.images.jpg.image_url} alt="" />
                                 </div>
                                 <div className="character-first-name">
                                     {Array(res.character.name).map((res) => res.split(',').join(' '))}
@@ -126,8 +127,8 @@ export const MangaItem = () => {
                                 <Link to={'/character/' + res.character.mal_id }>
                                     <div className="character-name">More</div>
                                 </Link>
-                                </div>
-                        )}
+                            </div>
+                        ): null}
                     </div>    
                 </div>
                 

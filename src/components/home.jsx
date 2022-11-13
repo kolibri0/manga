@@ -19,11 +19,10 @@ export const Home = () => {
     const allPage = useSelector(state => state.featchMangaSlice.allPage)
     //selected page
     const selectedPage = useSelector(state => state.mangaSlice.selectedPage)
-
+    //res manga
     const items = useSelector(state => state.featchMangaSlice.manga)
-    
+    //just dispatch)
     const dispatch = useDispatch()
-
     //manga type
     const options = [
         { value: '', label: 'All' },
@@ -35,19 +34,16 @@ export const Home = () => {
         { value: 'manhwa', label: 'Manhwa' },
         { value: 'manhua', label: 'Manhua' }
     ]
-
-    // const [items, setItems] = React.useState([])
-
+    //request at api
     React.useEffect(() => {
         dispatch(getMangaHome({selected, letter, selectedPage}))
     }, [selectedPage, selected, letter ])
-
+    //reset selected page on first boot
     React.useEffect(() => {
         dispatch(setSelectedPage(1))
     }, [])
     
     //dispatch logic/////////////////////////////////////////////////////
-
     //search manga by word
     const searchManga = (e) => {
         dispatch(setLetter(e.target.value))
