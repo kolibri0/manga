@@ -4,6 +4,7 @@ import featchMangaSlice from './featch-manga.js/featch-manga';
 import featchMangaItemSlice from './manga-item/get-manga-item';
 import featchMangaItemMoreSlice from './manga-item/get-more-manga-item';
 import featchCharacterSlice from './characters/characters'
+import userSlice from './auth/auth'
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         featchMangaItemSlice,
         featchMangaItemMoreSlice,
         featchCharacterSlice,
+        userSlice,
     },
 })
 
