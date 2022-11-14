@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { getMangaTop } from "../store/featch-manga.js/featch-manga";
+import { getMangaTop, setMangaError } from "../store/featch-manga.js/featch-manga";
 import { setAllPage, setSelectedPage } from "../store/manga-items/manga-home";
 
 import '../components/home.css'
@@ -16,6 +16,7 @@ import '../components/home.css'
     const items = useSelector(state => state.featchMangaSlice.manga)
     const selectedPage = useSelector(state => state.mangaSlice.selectedPage)
     const allPage = useSelector(state => state.featchMangaSlice.allPage)
+    const error = useSelector(state => state.featchMangaSlice.mangaError)
 
 
     React.useEffect(() => {
@@ -30,6 +31,10 @@ import '../components/home.css'
         dispatch(setSelectedPage(event.selected + 1)) 
     };
 
+    if(error){
+        alert(error)
+        dispatch(setMangaError(null))
+    }
 
     return (
         <div className="container">

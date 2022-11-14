@@ -2,14 +2,12 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { loginUser } from "../store/auth/auth";
-import { useDispatch } from "react-redux";
+import { loginUser, setError } from "../store/auth/auth";
+import { useDispatch, useSelector } from "react-redux";
 
-
+import './auth.css'
 
 export const Login = () =>{
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const {
         register,
@@ -19,20 +17,27 @@ export const Login = () =>{
         },
         handleSubmit,
     } = useForm({mode: 'onChange'})
+    const error = useSelector(state => state.userSlice.error) 
+    
+    if(error){
+        alert(error)
+        dispatch(setError(null))
+    }
 
     const login = (e) =>{
         dispatch(loginUser(e))
     }
 
+    
     return(
-        <>
-        <h1>Login</h1>
-        <div>
-            <form onSubmit={handleSubmit(login)}>
-                <input defaultValue={''} className="email" {...register('email', {
+        
+        <div className="contain-form">
+            <form className="form" onSubmit={handleSubmit(login)}>
+                <h1>Login</h1> 
+                <input defaultValue={''} className="email input-item" placeholder="email..." {...register('email', {
                     required: {
                         value: true, 
-                        message: 'поле обяз'
+                        message: 'Required field'
                     },
                     pattern: {
                         value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
@@ -41,10 +46,10 @@ export const Login = () =>{
                 })}/>
                 {errors.email && <p>{errors.email.message}</p>}
 
-                <input defaultValue={''} className="password" {...register('password', {
+                <input defaultValue={''} className="password input-item" placeholder="password..." {...register('password', {
                     required: {
                         value: true, 
-                        message: 'поле обяз'
+                        message: 'Required field'
                     },
                     minLength: {
                         value: 8,
@@ -53,11 +58,10 @@ export const Login = () =>{
                 })}/>
                 {errors.password && <p>{errors.password.message}</p>}
 
-                <input type={'submit'}/>
+                <input className="submit" value='submit' type={'submit'}/>
 
-                <Link to={'/signIn'}>Have account?</Link>
+                <Link className="account" to={'/signIn'}>Have account?</Link>
             </form>
         </div>
-        </>
     )   
 }

@@ -1,0 +1,28 @@
+
+.contain-form{
+    text-align: center;
+}
+.form{
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 350px;
+    height: 370px;
+    margin: 100px auto 0;
+}
+.input-item{
+    display: block;
+    margin: 0 auto 10px;
+}
+.submit{
+    display: block;
+    margin: 20px auto 20px;
+}
+.account{
+    color: #8B2F20;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.account:hover{
+    text-decoration: underline;
+}

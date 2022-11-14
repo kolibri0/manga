@@ -5,7 +5,7 @@ import Slider from "react-slick";
 
 import './character.css'
 import { useDispatch, useSelector } from "react-redux";
-import { getCharacter, getCharacterImg } from "../store/characters/characters";
+import { getCharacter, getCharacterImg, setErrorCharacter } from "../store/characters/characters";
 
 
 
@@ -21,14 +21,17 @@ export const Character = () => {
     const {id} = useParams()
     const characterInfo = useSelector(state => state.featchCharacterSlice.characterInfo)
     const image = useSelector(state => state.featchCharacterSlice.image)
-
+    const error = useSelector(state => state.featchCharacterSlice.error)
 
     React.useEffect(()=>{
         dispatch(getCharacter({id}))
         dispatch(getCharacterImg({id}))
     },[])
 
-    console.log(characterInfo)
+    if(error){
+        alert(error)
+        dispatch(setErrorCharacter(null))
+    }
 
     return(
         <div className="container">

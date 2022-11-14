@@ -4,6 +4,7 @@ import axios from 'axios'
 const initialState = {
     manga: [],
     allPage: 0,
+    mangaError: null
 }
 
 export const getMangaHome = createAsyncThunk(
@@ -26,6 +27,7 @@ const featchMangaSlice = createSlice({
     initialState,
     reducers: {
         setAllPage(state, action){ state.allPage = action.payload },
+        setMangaError(state, action){state.mangaError = action.payload}
     },
     extraReducers:{
         [getMangaHome.pending]: (state, action) =>{
@@ -36,6 +38,9 @@ const featchMangaSlice = createSlice({
             state.manga = action.payload.data
             state.allPage = action.payload.pagination.last_visible_page
         },
+        [getMangaHome.rejected]: (state, action) =>{
+            state.mangaError = action.error.message
+        },
         [getMangaTop.pending]: (state, action) =>{
             state.allPage = 0
             state.manga = []
@@ -44,9 +49,12 @@ const featchMangaSlice = createSlice({
             state.manga = action.payload.data
             state.allPage = action.payload.pagination.last_visible_page
         },
+        [getMangaTop.rejected]: (state, action) =>{
+            state.mangaError = action.error.message
+        },
     }
 })
 
  
-export const { setAllPage } = featchMangaSlice.actions
+export const { setAllPage, setMangaError } = featchMangaSlice.actions
 export default featchMangaSlice.reducer

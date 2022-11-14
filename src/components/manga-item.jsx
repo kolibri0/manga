@@ -7,8 +7,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import '../components/manga-item.css'
-import { getMangaItem, getMangaRecomendation } from "../store/manga-item/get-manga-item";
-import { getMangaItemCharacters, getMangaItemMore, setCharacters, setMoreInfo } from "../store/manga-item/get-more-manga-item";
+import { getMangaItem, getMangaRecomendation, setErrorItem } from "../store/manga-item/get-manga-item";
+import { getMangaItemCharacters, getMangaItemMore, setCharacters, setErrorMore, setMoreInfo } from "../store/manga-item/get-more-manga-item";
 
 
 
@@ -57,6 +57,8 @@ export const MangaItem = () => {
     const recomendation = useSelector(state => state.featchMangaItemSlice.recomendation)
     const characters = useSelector(state => state.featchMangaItemMoreSlice.characters)
     const moreInfo = useSelector(state => state.featchMangaItemMoreSlice.moreInfo)
+    const error = useSelector(state => state.featchMangaItemSlice.errorItem)
+    const errorMore = useSelector(state => state.featchMangaItemMoreSlice.errorMore)
     
     React.useEffect(()=>{
         dispatch(setCharacters([]))
@@ -68,6 +70,15 @@ export const MangaItem = () => {
    const getMoreInfo = () =>{
         dispatch(getMangaItemMore({id}))
         dispatch(getMangaItemCharacters({id}))
+   }
+
+   if(error){
+    alert(error)
+    dispatch(setErrorItem(null))
+   }
+   if(errorMore){
+    alert(errorMore)
+    dispatch(setErrorMore(null))
    }
     return ( 
         

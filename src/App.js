@@ -7,6 +7,8 @@ import { MangaItem } from './components/manga-item';
 import { Character } from './components/character';
 import { Login } from './components/login';
 import { SignIn } from './components/sign-in';
+import { LoginAuth } from './components/login-auth';
+import { AuthAll } from './components/auth-all';
 
 function App() {
   return (
@@ -15,11 +17,31 @@ function App() {
 
         <Routes>
             <Route path='/' element={<Home/>}/>
-            <Route path="/top" element={<TopManga/>}/>
-            <Route path='/:id' element={<MangaItem/>}/>
-            <Route path='/character/:id' element={<Character/>}/>
-            <Route path='/login' element={<Login/>}/>
-            <Route path='/signin' element={<SignIn/>} />
+            <Route path="/top" element={
+              <AuthAll>
+                <TopManga/>
+              </AuthAll>
+            }/>
+            <Route path='/:id' element={
+              <AuthAll>
+                <MangaItem/>
+              </AuthAll>
+            }/>
+            <Route path='/character/:id' element={
+              <AuthAll>
+                <Character/>
+              </AuthAll>
+            }/>
+            <Route path='/login' element={
+              <LoginAuth>
+                <Login/>
+              </LoginAuth>
+            }/>
+            <Route path='/signin' element={
+              <LoginAuth>
+                <SignIn/>
+              </LoginAuth>
+            }/>
         </Routes>
     </div>
       

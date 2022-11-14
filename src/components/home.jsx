@@ -7,7 +7,7 @@ import { setLetter, setSelected, setSelectedPage } from "../store/manga-items/ma
 
 import '../components/home.css'
 import '../components/paginate.css'
-import { getMangaHome } from "../store/featch-manga.js/featch-manga";
+import { getMangaHome, setMangaError } from "../store/featch-manga.js/featch-manga";
 
 export const Home = () => {
 
@@ -21,6 +21,8 @@ export const Home = () => {
     const selectedPage = useSelector(state => state.mangaSlice.selectedPage)
     //res manga
     const items = useSelector(state => state.featchMangaSlice.manga)
+    //error
+    const error = useSelector(state => state.featchMangaSlice.mangaError)
     //just dispatch)
     const dispatch = useDispatch()
     //manga type
@@ -56,6 +58,10 @@ export const Home = () => {
     const setSelect = (e) =>{  
         dispatch(setSelected(e.target.value))
     } 
+    if(error){
+        alert(error)
+        dispatch(setMangaError(null))
+    }
     //dispatch logic end/////////////////////////////////////////////////////
 
     return (

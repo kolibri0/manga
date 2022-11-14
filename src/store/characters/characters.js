@@ -4,6 +4,7 @@ import axios from 'axios'
 const initialState = {
     characterInfo: {},
     image: [],
+    error: null,
 }
 
 export const getCharacter = createAsyncThunk(
@@ -25,7 +26,9 @@ export const getCharacterImg = createAsyncThunk(
 const featchCharacterSlice = createSlice({
     name: 'character',
     initialState,
-    reducers: {},
+    reducers: {
+        setErrorCharacter(state, action){state.error = action.payload}
+    },
     extraReducers:{
         [getCharacter.pending]: (state, action) =>{
             state.characterInfo = {}
@@ -33,14 +36,20 @@ const featchCharacterSlice = createSlice({
         [getCharacter.fulfilled]: (state, action) =>{
             state.characterInfo = action.payload.data
         },
+        [getCharacter.rejected]: (state, action) =>{
+            state.error = action.error.message
+        },
         [getCharacterImg.pending]: (state, action) =>{
             state.image = []
         },
         [getCharacterImg.fulfilled]: (state, action) =>{
             state.image = action.payload.data
         },
+        [getCharacterImg.rejected]: (state, action) =>{
+            state.error = action.error.message
+        },
     }
 })
 
-
+export const { setErrorCharacter } = featchCharacterSlice.actions
 export default featchCharacterSlice.reducer

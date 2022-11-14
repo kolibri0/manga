@@ -4,7 +4,8 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } f
 import { auth } from '../../components/firebase';
 
 const initialState = {
-    user: null
+    user: null,
+    error: null
 }
 
 export const loginUser = createAsyncThunk(
@@ -34,20 +35,33 @@ export const signOutUser = createAsyncThunk(
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        setError(state, action){state.error = action.payload}
+    },
     extraReducers:{
+        [loginUser.pending]: (state, action)=>{
+            state.error = null
+        },
         [loginUser.fulfilled]: (state, action)=>{
             state.user = action.payload.user 
-            console.log(state.user)
         },
+        [loginUser.rejected]: (state, action)=>{
+            state.error = action.error.message
+        },
+        //////////////////////////////////////////
         [signInUser.fulfilled]: (state, action)=>{
-            state.user = action.payload.user
+            state.user = action.payload
             console.log(state.user)
         },
+        [signInUser.rejected]: (state, action)=>{
+            state.error = action.error.message
+        },
+        ////////////////////////////////////////////
         [signOutUser.fulfilled]: (state, action)=>{
             state.user = null
         }
     },
 })
 
+export const {setError} = userSlice.actions
 export default userSlice.reducer

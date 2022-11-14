@@ -3,7 +3,8 @@ import axios from 'axios'
 
 const initialState = {
     characters: [],
-    moreInfo: {}
+    moreInfo: {},
+    errorMore: null
 }
 
 export const getMangaItemMore = createAsyncThunk(
@@ -27,7 +28,8 @@ const featchMangaItemMoreSlice = createSlice({
     initialState,
     reducers: {
         setCharacters(state, action){state.characters = action.payload},
-        setMoreInfo(state, action){state.moreInfo = action.payload}
+        setMoreInfo(state, action){state.moreInfo = action.payload},
+        setErrorMore(state, action){state.errorMore = action.payload}
     },
     extraReducers:{
         [getMangaItemMore.pending]: (state, action) =>{
@@ -36,15 +38,21 @@ const featchMangaItemMoreSlice = createSlice({
         [getMangaItemMore.fulfilled]: (state, action) =>{
             state.moreInfo = action.payload.data
         },
+        [getMangaItemMore.rejected]: (state, action) =>{
+            state.errorMore = action.error.message
+        },
         [getMangaItemCharacters.pending]: (state, action) =>{
             state.characters = []
         },
         [getMangaItemCharacters.fulfilled]: (state, action) =>{
             state.characters = action.payload.data
-        }
+        },
+        [getMangaItemCharacters.rejected]: (state, action) =>{
+            state.errorMore = action.error.message
+        },
     }
 })
 
 
-export const { setCharacters, setMoreInfo} = featchMangaItemMoreSlice.actions
+export const { setCharacters, setMoreInfo, setErrorMore} = featchMangaItemMoreSlice.actions
 export default featchMangaItemMoreSlice.reducer
