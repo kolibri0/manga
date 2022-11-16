@@ -45,17 +45,16 @@ const featchMangaItemMoreSlice = createSlice({
         })
         builder.addCase(getMangaItemMore.fulfilled, (state, action) =>{
             state.moreInfo = action.payload.data
-            console.log(state.moreInfo)
         })
         builder.addCase(getMangaItemMore.rejected, (state, action) =>{
             if(action.error.message){state.errorMore = action.error.message}
         })
+        //=================================================================\\
         builder.addCase(getMangaItemCharacters.pending, (state, action) =>{
             state.characters = []
         })
         builder.addCase(getMangaItemCharacters.fulfilled, (state, action) =>{
             state.characters = action.payload.data
-            console.log(state.characters)
         })
         builder.addCase(getMangaItemCharacters.rejected, (state, action) =>{
             if(action.error.message){state.errorMore = action.error.message}

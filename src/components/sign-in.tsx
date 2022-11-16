@@ -1,14 +1,18 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-import { Link, useNavigate } from "react-router-dom";
-import { loginUser, setError } from "../store/auth/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { setError, signInUser,} from "../store/auth/auth";
+import { useAppDispatch, useAppSelector } from "../store/hook";
 
 import './auth.css'
 
-export const Login = () =>{
-    const dispatch = useDispatch()
+type FormValues = {
+    email: string
+    password: string
+};
+
+export const SignIn = () =>{
+    const dispatch = useAppDispatch()
     const {
         register,
         formState: {
@@ -16,28 +20,26 @@ export const Login = () =>{
             isValid,
         },
         handleSubmit,
-    } = useForm({mode: 'onChange'})
-    const error = useSelector(state => state.userSlice.error) 
-    
+    } = useForm<FormValues>({mode: 'onChange'})
+    const error = useAppSelector(state => state.userSlice.error)
+
     if(error){
         alert(error)
         dispatch(setError(null))
     }
 
-    const login = (e) =>{
-        dispatch(loginUser(e))
+    const signIn = (e: any) =>{
+        dispatch(signInUser(e))
     }
 
-    
     return(
-        
         <div className="contain-form">
-            <form className="form" onSubmit={handleSubmit(login)}>
-                <h1>Login</h1> 
-                <input defaultValue={''} className="email input-item" placeholder="email..." {...register('email', {
+            <form className="form" onSubmit={handleSubmit(signIn)}>
+                <h1>Sign in</h1>
+                <input className="email input-item" placeholder="email..." {...register('email', {
                     required: {
                         value: true, 
-                        message: 'Required field'
+                        message: 'поле обяз'
                     },
                     pattern: {
                         value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
@@ -46,10 +48,10 @@ export const Login = () =>{
                 })}/>
                 {errors.email && <p>{errors.email.message}</p>}
 
-                <input defaultValue={''} className="password input-item" placeholder="password..." {...register('password', {
+                <input className="password input-item" placeholder="password..." {...register('password', {
                     required: {
                         value: true, 
-                        message: 'Required field'
+                        message: 'поле обяз'
                     },
                     minLength: {
                         value: 8,
@@ -59,8 +61,6 @@ export const Login = () =>{
                 {errors.password && <p>{errors.password.message}</p>}
 
                 <input className="submit" value='submit' type={'submit'}/>
-
-                <Link className="account" to={'/signIn'}>Have account?</Link>
             </form>
         </div>
     )   

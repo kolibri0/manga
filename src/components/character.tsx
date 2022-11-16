@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom"
 import Slider from "react-slick";
 
 import './character.css'
-import { useDispatch, useSelector } from "react-redux";
 import { getCharacter, getCharacterImg, setErrorCharacter } from "../store/characters/characters";
+import { useAppDispatch, useAppSelector } from "../store/hook";
 
 
 
@@ -17,15 +17,15 @@ export const Character = () => {
         slidesToScroll: 1,
         speed: 500
     }
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const {id} = useParams()
-    const characterInfo = useSelector(state => state.featchCharacterSlice.characterInfo)
-    const image = useSelector(state => state.featchCharacterSlice.image)
-    const error = useSelector(state => state.featchCharacterSlice.error)
+    const characterInfo = useAppSelector(state => state.featchCharacterSlice.characterInfo)
+    const image = useAppSelector(state => state.featchCharacterSlice.image)
+    const error = useAppSelector(state => state.featchCharacterSlice.error)
 
     React.useEffect(()=>{
-        dispatch(getCharacter({id}))
-        dispatch(getCharacterImg({id}))
+        dispatch(getCharacter(Number(id)))
+        dispatch(getCharacterImg(Number(id)))
     },[])
 
     if(error){
@@ -35,15 +35,15 @@ export const Character = () => {
 
     return(
         <div className="container">
-            {characterInfo.name && <h2 className="person-name">{characterInfo.name}</h2>}
+            {characterInfo && <h2 className="person-name">{characterInfo.name}</h2>}
 
             {image[2] ?
                 <Slider {...settings} className='character-slider'>
-                    {image.map((res) => <img className="character-img" key={toString(res?.jpg.image_url)} src={res?.jpg.image_url}/>)}
+                    {image && image.map((res) => <img className="character-img" key={res.jpg.image_url} src={res?.jpg.image_url}/>)}
                 </Slider>:
             <div>loading... or skellet</div>
             }
-            {characterInfo.about && <div className="character-description">{characterInfo.about}</div>}
+            {characterInfo && <div className="character-description">{characterInfo.about}</div>}
         </div>
     )
 }

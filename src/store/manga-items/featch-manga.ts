@@ -61,6 +61,16 @@ const featchMangaSlice = createSlice({
         builder.addCase(getMangaHome.rejected, (state, action) =>{
             if(action.error.message){state.mangaError = action.error.message}
         })
+        //=================================================================\\
+        builder.addCase(getMangaTop.pending, (state, action) =>{
+            state.manga = [] 
+        })
+        builder.addCase(getMangaTop.fulfilled, (state, action) =>{
+            state.manga = action.payload.data
+        })
+        builder.addCase(getMangaTop.rejected, (state, action) =>{
+            if(action.error.message){state.mangaError = action.error.message} 
+        })
     }
 })
 

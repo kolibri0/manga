@@ -1,12 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios";
-import { useDispatch } from 'react-redux';
 import { signOutUser } from '../store/auth/auth';
+import { useAppDispatch } from '../store/hook';
 
 
 export const Main = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const random = () =>{
         axios.get(`https://api.jikan.moe/v4/random/manga`)
         .then((res)=> navigate(`/${res.data.data.mal_id}`))
