@@ -4,7 +4,8 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } f
 import { auth } from '../../components/firebase';
 
 const initialState = {
-    user: null,
+    // user: null,
+    user: true,
     error: null
 }
 

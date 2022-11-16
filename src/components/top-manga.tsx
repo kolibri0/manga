@@ -1,33 +1,31 @@
-import axios from "axios"
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
 
-import { useSelector, useDispatch } from 'react-redux'
-import { getMangaTop, setMangaError } from "../store/featch-manga.js/featch-manga";
-import { setAllPage, setSelectedPage } from "../store/manga-items/manga-home";
+import { getMangaTop, setMangaError } from "../store/manga-items/featch-manga";
+import { setSelectedPage } from "../store/manga-items/manga-home";
 
 import '../components/home.css'
+import { useAppDispatch, useAppSelector } from "../store/hook";
 
 
  export const TopManga = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
-    const items = useSelector(state => state.featchMangaSlice.manga)
-    const selectedPage = useSelector(state => state.mangaSlice.selectedPage)
-    const allPage = useSelector(state => state.featchMangaSlice.allPage)
-    const error = useSelector(state => state.featchMangaSlice.mangaError)
-
+    const items = useAppSelector(state => state.featchMangaSlice.manga)
+    const selectedPage = useAppSelector(state => state.mangaSlice.selectedPage)
+    const allPage = useAppSelector(state => state.featchMangaSlice.allPage)
+    const error = useAppSelector(state => state.featchMangaSlice.mangaError)
 
     React.useEffect(() => {
-        dispatch(getMangaTop({selectedPage}))
+        dispatch(getMangaTop(selectedPage))
     }, [selectedPage])
 
     React.useEffect(()=>{
         dispatch(setSelectedPage(1)) 
     },[])
     
-    const handlePageClick = (event) => {
+    const handlePageClick = (event: any) => {
         dispatch(setSelectedPage(event.selected + 1)) 
     };
 
@@ -72,7 +70,6 @@ import '../components/home.css'
             pageRangeDisplayed={8}
             pageCount={allPage}
             previousLabel="<"
-            renderOnZeroPageCount={null}
             />
         </div>
 

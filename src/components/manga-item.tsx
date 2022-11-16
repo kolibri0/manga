@@ -1,21 +1,19 @@
 import React from "react"
 import { Link, useParams } from 'react-router-dom';
 
-import { useSelector, useDispatch } from 'react-redux'
-
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import '../components/manga-item.css'
+import '../components/manga-item.css';
+
 import { getMangaItem, getMangaRecomendation, setErrorItem } from "../store/manga-item/get-manga-item";
 import { getMangaItemCharacters, getMangaItemMore, setCharacters, setErrorMore, setMoreInfo } from "../store/manga-item/get-more-manga-item";
-
-
+import { useAppDispatch, useAppSelector } from "../store/hook";
+import Slider from "react-slick";
 
 
 
 export const MangaItem = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     var settings = {
         dots: true,
@@ -53,23 +51,23 @@ export const MangaItem = () => {
     };
 
     let { id } = useParams()
-    const item = useSelector(state => state.featchMangaItemSlice.mangaItem)
-    const recomendation = useSelector(state => state.featchMangaItemSlice.recomendation)
-    const characters = useSelector(state => state.featchMangaItemMoreSlice.characters)
-    const moreInfo = useSelector(state => state.featchMangaItemMoreSlice.moreInfo)
-    const error = useSelector(state => state.featchMangaItemSlice.errorItem)
-    const errorMore = useSelector(state => state.featchMangaItemMoreSlice.errorMore)
+    const item = useAppSelector(state => state.featchMangaItemSlice.mangaItem)
+    const recomendation = useAppSelector(state => state.featchMangaItemSlice.recomendation)
+    const characters = useAppSelector(state => state.featchMangaItemMoreSlice.characters)
+    const moreInfo = useAppSelector(state => state.featchMangaItemMoreSlice.moreInfo)
+    const error = useAppSelector(state => state.featchMangaItemSlice.errorItem)
+    const errorMore = useAppSelector(state => state.featchMangaItemMoreSlice.errorMore)
     
     React.useEffect(()=>{
         dispatch(setCharacters([]))
-        dispatch(setMoreInfo({}))
-        dispatch(getMangaItem({id}))
-        dispatch(getMangaRecomendation({id}))
+        dispatch(setMoreInfo(null))
+        dispatch(getMangaItem(Number(id)))
+        dispatch(getMangaRecomendation(Number(id)))
     }, [id])
     
    const getMoreInfo = () =>{
-        dispatch(getMangaItemMore({id}))
-        dispatch(getMangaItemCharacters({id}))
+        dispatch(getMangaItemMore(Number(id)))
+        dispatch(getMangaItemCharacters(Number(id)))
    }
 
    if(error){
@@ -83,8 +81,8 @@ export const MangaItem = () => {
     return ( 
         
         <div className='manga-item'>
-            <div className='manga-item-content'>
-                <img className='manga-img-item' src={item.images?.jpg?.image_url} alt="" />
+            { item && <div className='manga-item-content'>
+                <img className='manga-img-item' src={item?.images?.jpg?.image_url} alt="" />
                 <div>
                     <div className="name">{item.title_english}</div>
                     <div className="name">{item.title_japanese}</div>
@@ -97,13 +95,13 @@ export const MangaItem = () => {
                     <div className="description-title">{item.synopsis}</div>
                     <hr />
                 </div>
-            </div>
+            </div>}
 
             <div>
                 {recomendation[0] && <div className="another">Another</div>}
                 <Slider {...settings} className='slider'>
                     { recomendation &&
-                        recomendation.map((res, i) => i <25? (
+                        recomendation.map((res: any, i: number) => i <25? (
                             <div className="card">
                                 <div className="card-top">
                                 <Link className="name-item" to={'/' + res.entry.mal_id}>
@@ -121,10 +119,9 @@ export const MangaItem = () => {
             <button className="more" onClick={() => getMoreInfo()}>More info</button>  
             <div>
                 <div className="more-info">
-                    {moreInfo.moreinfo}
+                    {moreInfo && moreInfo.moreinfo}
                 </div>
-                <div>
-                {characters && characters[0] &&<div className="character-text">Characters</div>}
+                <div>{characters && characters[0] &&<div className="character-text">Characters</div>}
                     <div className="characters">
                         {characters ? characters.map((res)=> 
                             <div className="character">

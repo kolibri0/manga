@@ -2,31 +2,35 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 
-import { useSelector, useDispatch } from 'react-redux'
 import { setLetter, setSelected, setSelectedPage } from "../store/manga-items/manga-home";
+import { getMangaHome, setMangaError } from "../store/manga-items/featch-manga";
+import { useAppDispatch, useAppSelector } from '../store/hook';
 
 import '../components/home.css'
 import '../components/paginate.css'
-import { getMangaHome, setMangaError } from "../store/featch-manga.js/featch-manga";
+
+interface option{
+    value: string,
+    label: string
+}
 
 export const Home = () => {
-
     //selected option (manga type)
-    const selected = useSelector(state => state.mangaSlice.selected)
+    const selected = useAppSelector(state => state.mangaSlice.selected)
     //for search manga by words
-    const letter = useSelector(state => state.mangaSlice.letter)
+    const letter = useAppSelector(state => state.mangaSlice.letter)
     //all page count
-    const allPage = useSelector(state => state.featchMangaSlice.allPage)
+    const allPage = useAppSelector(state => state.featchMangaSlice.allPage)
     //selected page
-    const selectedPage = useSelector(state => state.mangaSlice.selectedPage)
+    const selectedPage = useAppSelector(state => state.mangaSlice.selectedPage)
     //res manga
-    const items = useSelector(state => state.featchMangaSlice.manga)
+    const items = useAppSelector(state => state.featchMangaSlice.manga)
     //error
-    const error = useSelector(state => state.featchMangaSlice.mangaError)
+    const error = useAppSelector(state => state.featchMangaSlice.mangaError)
     //just dispatch)
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     //manga type
-    const options = [
+    const options: option[] = [
         { value: '', label: 'All' },
         { value: 'manga', label: 'Manga' },
         { value: 'novel', label: 'Novel' },
@@ -38,7 +42,7 @@ export const Home = () => {
     ]
     //request at api
     React.useEffect(() => {
-        dispatch(getMangaHome({selected, letter, selectedPage}))
+        dispatch(getMangaHome({selected, selectedPage, letter}))
     }, [selectedPage, selected, letter ])
     //reset selected page on first boot
     React.useEffect(() => {
@@ -47,15 +51,15 @@ export const Home = () => {
     
     //dispatch logic/////////////////////////////////////////////////////
     //search manga by word
-    const searchManga = (e) => {
+    const searchManga = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setLetter(e.target.value))
     }
     //check page 
-    const handlePageClick = (event) => {
+    const handlePageClick = (event: any) => {
         dispatch(setSelectedPage(event.selected + 1))
     };
     //select option 
-    const setSelect = (e) =>{  
+    const setSelect = (e: React.ChangeEvent<HTMLSelectElement>) =>{  
         dispatch(setSelected(e.target.value))
     } 
     if(error){
@@ -63,12 +67,11 @@ export const Home = () => {
         dispatch(setMangaError(null))
     }
     //dispatch logic end/////////////////////////////////////////////////////
-
     return (
         <div className="container">
             <input className="search-input" type="text" placeholder="Enter manga name..." onChange={e =>searchManga(e)}/>
             
-            <select className="select" defaultValue={options[1]} onChange={(e) => setSelect(e)}>
+            <select className="select" defaultValue={options[1].value} onChange={(e) => setSelect(e)}>
                 {options.map((res)=> <option key={res.label} value={res.value}>{res.label}</option>)}
             </select>
 
@@ -106,7 +109,6 @@ export const Home = () => {
             pageRangeDisplayed={8}
             pageCount={allPage}
             previousLabel="<"
-            renderOnZeroPageCount={null}
             />
 
         </div>
