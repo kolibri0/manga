@@ -5,7 +5,8 @@ import { mangaHome } from '../../interface/interfaceMangaHome'
 interface mangaAll{
     manga: mangaHome[],
     allPage: number,
-    mangaError: null | string
+    mangaError: null | string,
+    loading: boolean
 }
 
 interface params{
@@ -17,7 +18,8 @@ interface params{
 const initialState: mangaAll = {
     manga: [],
     allPage: 0,
-    mangaError: null
+    mangaError: null,
+    loading: false
 }
 
 export const getMangaHome = createAsyncThunk(
@@ -51,25 +53,35 @@ const featchMangaSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getMangaHome.pending, (state, action) =>{
+            state.loading = false
             state.allPage = 0
             state.manga = [] 
         })
         builder.addCase(getMangaHome.fulfilled, (state, action) =>{
             state.manga = action.payload.data
             state.allPage = action.payload.pagination.last_visible_page
+            state.loading = true
         })
         builder.addCase(getMangaHome.rejected, (state, action) =>{
-            if(action.error.message){state.mangaError = action.error.message}
+            if(action.error.message){
+                state.mangaError = action.error.message
+                state.loading = false
+            }
         })
         //=================================================================\\
         builder.addCase(getMangaTop.pending, (state, action) =>{
             state.manga = [] 
+            state.loading = false
         })
         builder.addCase(getMangaTop.fulfilled, (state, action) =>{
             state.manga = action.payload.data
+            state.loading = true
         })
         builder.addCase(getMangaTop.rejected, (state, action) =>{
-            if(action.error.message){state.mangaError = action.error.message} 
+            if(action.error.message){
+                state.mangaError = action.error.message
+                state.loading = false
+            } 
         })
     }
 })

@@ -83,6 +83,10 @@
     row-gap: 20px;
     text-align: center;
 }
+.characters.skelet{
+    row-gap: 20px;
+}
+
 .img-character{
     height: 250px;
     width: 185px;

@@ -9,6 +9,8 @@ import { getMangaItem, getMangaRecomendation, setErrorItem } from "../store/mang
 import { getMangaItemCharacters, getMangaItemMore, setCharacters, setErrorMore, setMoreInfo } from "../store/manga-item/get-more-manga-item";
 import { useAppDispatch, useAppSelector } from "../store/hook";
 import Slider from "react-slick";
+import { SkeletonItem } from "./skeleton-item";
+import { SkeletonCharacters } from "./skeleton-characters";
 
 
 
@@ -57,6 +59,8 @@ export const MangaItem = () => {
     const moreInfo = useAppSelector(state => state.featchMangaItemMoreSlice.moreInfo)
     const error = useAppSelector(state => state.featchMangaItemSlice.errorItem)
     const errorMore = useAppSelector(state => state.featchMangaItemMoreSlice.errorMore)
+    const loading = useAppSelector(state => state.featchMangaItemSlice.loading)
+    const loadingMore = useAppSelector(state => state.featchMangaItemMoreSlice.loadingMore)
     
     React.useEffect(()=>{
         dispatch(setCharacters([]))
@@ -81,7 +85,7 @@ export const MangaItem = () => {
     return ( 
         
         <div className='manga-item'>
-            { item && <div className='manga-item-content'>
+            { item && loading ? <div className='manga-item-content'>
                 <img className='manga-img-item' src={item?.images?.jpg?.image_url} alt="" />
                 <div>
                     <div className="name">{item.title_english}</div>
@@ -95,13 +99,17 @@ export const MangaItem = () => {
                     <div className="description-title">{item.synopsis}</div>
                     <hr />
                 </div>
-            </div>}
+            </div>: null}
+
+        <div>{!loading ? <><SkeletonItem /></>: null}</div>
+
 
             <div>
                 {recomendation[0] && <div className="another">Another</div>}
                 <Slider {...settings} className='slider'>
-                    { recomendation &&
-                        recomendation.map((res: any, i: number) => i <25? (
+                    { recomendation && loading ?
+                        recomendation.map((res: any, i: number) => i <25 ? 
+                        (
                             <div className="card">
                                 <div className="card-top">
                                 <Link className="name-item" to={'/' + res.entry.mal_id}>
@@ -112,34 +120,38 @@ export const MangaItem = () => {
                                     <Link className="name-item" to={'/' + res.entry.mal_id}>{res.entry.title}</Link> 
                                 </div>
                             </div>
-                        ): null)
-                    }
-                </Slider>
-            </div>    
-            <button className="more" onClick={() => getMoreInfo()}>More info</button>  
-            <div>
+                        )
+                        :null)
+                    :null }
+                </Slider>      
+            </div> 
+            
+            {loading ? <button className="more" onClick={() => getMoreInfo()}>More info</button>: null  }
+             <div>
                 <div className="more-info">
                     {moreInfo && moreInfo.moreinfo}
                 </div>
                 <div>{characters && characters[0] &&<div className="character-text">Characters</div>}
-                    <div className="characters">
-                        {characters ? characters.map((res)=> 
-                            <div className="character">
-                                <div>
-                                    <img className="img-character" src={res.character?.images.jpg.image_url} alt="" />
-                                </div>
-                                <div className="character-first-name">
-                                    {Array(res.character.name).map((res) => res.split(',').join(' '))}
-                                </div>
-                                <div>Role: {res.role}</div>
-                                <Link to={'/character/' + res.character.mal_id }>
-                                    <div className="character-name">More</div>
-                                </Link>
+                <div className="characters">
+                    {characters && loadingMore ? characters.map((res)=> 
+                        <div className="character">
+                            <div>
+                                <img className="img-character" src={res.character?.images.jpg.image_url} alt="" />
                             </div>
-                        ): null}
-                    </div>    
+                            <div className="character-first-name">
+                                {Array(res.character.name).map((res) => res.split(',').join(' '))}
+                            </div>
+                            <div>Role: {res.role}</div>
+                            <Link to={'/character/' + res.character.mal_id }>
+                                <div className="character-name">More</div>
+                            </Link>
+                        </div>
+                    ): null}
+                    
                 </div>
-                
+                {!characters && !loadingMore && loading ? <div className="character-text">Characters</div>: null}
+                {!characters && !loadingMore && loading ? <div className="characters skelet">{[...Array(12)].map(() => <div className="character"> <SkeletonCharacters /></div>)}</div>: null}    
+                </div>
             </div>
         </div>
     )

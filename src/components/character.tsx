@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import './character.css'
 import { getCharacter, getCharacterImg, setErrorCharacter } from "../store/characters/characters";
 import { useAppDispatch, useAppSelector } from "../store/hook";
+import { LoadingSpinner } from "./spiner";
 
 
 
@@ -35,13 +36,13 @@ export const Character = () => {
 
     return(
         <div className="container">
+            
             {characterInfo && <h2 className="person-name">{characterInfo.name}</h2>}
 
-            {image[2] ?
+            {!image[2] ? <div className="loader"><LoadingSpinner /></div>:
                 <Slider {...settings} className='character-slider'>
                     {image && image.map((res) => <img className="character-img" key={res.jpg.image_url} src={res?.jpg.image_url}/>)}
-                </Slider>:
-            <div>loading... or skellet</div>
+                </Slider>
             }
             {characterInfo && <div className="character-description">{characterInfo.about}</div>}
         </div>

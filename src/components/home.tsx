@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from '../store/hook';
 
 import '../components/home.css'
 import '../components/paginate.css'
+import { Skeleton } from './skeleton';
+import { map } from '@firebase/util';
 
 interface option{
     value: string,
@@ -27,6 +29,8 @@ export const Home = () => {
     const items = useAppSelector(state => state.featchMangaSlice.manga)
     //error
     const error = useAppSelector(state => state.featchMangaSlice.mangaError)
+
+    const loading = useAppSelector(state => state.featchMangaSlice.loading)
     //just dispatch)
     const dispatch = useAppDispatch()
     //manga type
@@ -40,6 +44,7 @@ export const Home = () => {
         { value: 'manhwa', label: 'Manhwa' },
         { value: 'manhua', label: 'Manhua' }
     ]
+
     //request at api
     React.useEffect(() => {
         dispatch(getMangaHome({selected, selectedPage, letter}))
@@ -76,7 +81,7 @@ export const Home = () => {
             </select>
 
             <div className="contain-items">
-                {items && items.map((res, i) => (
+                {items && loading ? items.map((res, i) => (
                     <div className="contain-item" key={i}>
                         <div className="name-item">
                             <Link to={'/' + res.mal_id}>
@@ -98,8 +103,11 @@ export const Home = () => {
                         {res.score && <p className="score">Score: {res.score}</p>}
                     </div>
                 </div>
-                ))}
+                )):
+                null
+                }
             </div>
+            <>{!loading ? <div className="contain-items">{[...Array(12)].map(() => <div className="contain-item"><Skeleton /></div>)}</div>: null}</>
 
             <ReactPaginate
             className="pagination"
@@ -115,3 +123,4 @@ export const Home = () => {
 
     )
 }
+{/* <>{load ? <div className="contain-items">{[...Array(9)].map(() => <div className="contain-item"><Skeleton /></div>)}</div>: null}</> */}

@@ -4,15 +4,17 @@ import { ICharacter } from '../../interface/ICharacter'
 import { IMoreInfo } from '../../interface/IMoreInfo'
 
 interface IInit{
-    characters: ICharacter[]
+    characters: ICharacter[] | null
     moreInfo: IMoreInfo | null
     errorMore: null | string
+    loadingMore: boolean
 }
 
 const initialState: IInit = {
-    characters: [],
+    characters: null,
     moreInfo: null,
-    errorMore: null
+    errorMore: null,
+    loadingMore: false
 }
 
 export const getMangaItemMore = createAsyncThunk(
@@ -51,13 +53,16 @@ const featchMangaItemMoreSlice = createSlice({
         })
         //=================================================================\\
         builder.addCase(getMangaItemCharacters.pending, (state, action) =>{
-            state.characters = []
+            state.loadingMore = false
+            state.characters = null
         })
         builder.addCase(getMangaItemCharacters.fulfilled, (state, action) =>{
             state.characters = action.payload.data
+            state.loadingMore = true
         })
         builder.addCase(getMangaItemCharacters.rejected, (state, action) =>{
             if(action.error.message){state.errorMore = action.error.message}
+            state.loadingMore = false
         })
     }
 })

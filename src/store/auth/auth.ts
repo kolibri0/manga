@@ -9,7 +9,7 @@ interface IauthProp{
 }
 
 interface IInit{
-    user: User | null  
+    user: User | null
     error: null | string
 }
 

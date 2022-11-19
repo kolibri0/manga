@@ -7,12 +7,14 @@ interface IInitItem{
     mangaItem: IMangaItem | null
     recomendation: IRecomendation[]
     errorItem: string | null
+    loading: boolean
 }
 
 const initialState: IInitItem = {
     mangaItem: null,
     recomendation: [],
-    errorItem: null
+    errorItem: null,
+    loading: false
 }
 
 export const getMangaItem = createAsyncThunk(
@@ -41,12 +43,15 @@ const featchMangaItemSlice = createSlice({
         
         builder.addCase(getMangaItem.pending, (state, action) =>{
             state.mangaItem = null
+            state.loading = false
         })
         builder.addCase(getMangaItem.fulfilled, (state, action) =>{
             state.mangaItem = action.payload.data
+            state.loading = true
         })
         builder.addCase(getMangaItem.rejected, (state, action) =>{
             if(action.error.message){state.errorItem = action.error.message}
+            state.loading = false
         })
         //=================================================================\\
         builder.addCase(getMangaRecomendation.pending, (state, action) =>{

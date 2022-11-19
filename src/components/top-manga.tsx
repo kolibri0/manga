@@ -7,6 +7,7 @@ import { setSelectedPage } from "../store/manga-items/manga-home";
 
 import '../components/home.css'
 import { useAppDispatch, useAppSelector } from "../store/hook";
+import { Skeleton } from './skeleton';
 
 
  export const TopManga = () => {
@@ -16,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "../store/hook";
     const selectedPage = useAppSelector(state => state.mangaSlice.selectedPage)
     const allPage = useAppSelector(state => state.featchMangaSlice.allPage)
     const error = useAppSelector(state => state.featchMangaSlice.mangaError)
+    const loading = useAppSelector(state => state.featchMangaSlice.loading)
 
     React.useEffect(() => {
         dispatch(getMangaTop(selectedPage))
@@ -37,7 +39,7 @@ import { useAppDispatch, useAppSelector } from "../store/hook";
     return (
         <div className="container">
             <div className="contain-items">
-                {items && items.map((res, i) => (
+                {items && loading ? items.map((res, i) => (
                     <div className="contain-item" key={i}>
                         <div className="name-item">
                             <Link to={'/' + res.mal_id}>
@@ -59,8 +61,11 @@ import { useAppDispatch, useAppSelector } from "../store/hook";
                         {res.score && <p className="score">Score: {res.score}</p>}
                     </div>
                 </div>
-                ))}
+                )):
+                null
+                }
             </div>
+            <>{!loading ? <div className="contain-items">{[...Array(12)].map(() => <div className="contain-item"><Skeleton /></div>)}</div>: null}</>
 
             <ReactPaginate
             className="pagination"
@@ -71,7 +76,7 @@ import { useAppDispatch, useAppSelector } from "../store/hook";
             pageCount={allPage}
             previousLabel="<"
             />
-        </div>
+            </div> 
 
     )
 }
