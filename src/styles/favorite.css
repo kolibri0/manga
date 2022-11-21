@@ -1,0 +1,51 @@
+.favorites{
+    display: grid;
+    grid-template-columns: repeat(5, 222px);
+    width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+.favorite-item{
+    position: relative;
+    text-align: center;
+    height: 280px;
+}
+.favorite-img{
+    height: 250px;
+}
+.favorite-name{
+    color: black;
+    text-decoration: none;
+}
+.favorite-name:hover{
+    color: #8B2F20;
+    text-decoration: underline;
+}
+.favorite-star{
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+}
+.warn-fav{
+    text-align: center;
+    color:#8B2F20;
+}
+@media (max-width: 490px){
+    .favorites{
+        display: grid;
+        grid-template-columns: repeat(2, 220px);
+        width: 400x;
+        margin: 0 auto;
+        gap: 20px;
+        margin-left: 350px;
+    }
+    .warn-fav{
+        width: 490px;
+        margin-left: 350px;
+        text-align: center;
+        color:#8B2F20;
+    }
+}

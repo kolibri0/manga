@@ -1,14 +1,13 @@
 import React from "react"
-import axios from "axios"
 import { useParams } from "react-router-dom"
-import Slider from "react-slick";
 
-import './character.css'
-import { getCharacter, getCharacterImg, setErrorCharacter } from "../store/characters/characters";
-import { useAppDispatch, useAppSelector } from "../store/hook";
+import Slider from "react-slick";
 import { LoadingSpinner } from "./spiner";
 
+import { getCharacter, getCharacterImg, setErrorCharacter } from "../store/characters/characters";
+import { useAppDispatch, useAppSelector } from "../store/hook";
 
+import '../styles/character.css'
 
 export const Character = () => {
     const settings = {

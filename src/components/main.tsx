@@ -3,6 +3,8 @@ import axios from "axios";
 import { signOutUser } from '../store/auth/auth';
 import { useAppDispatch } from '../store/hook';
 
+import '../styles/main.css'
+
 
 export const Main = () => {
     const navigate = useNavigate();
@@ -18,10 +20,11 @@ export const Main = () => {
     }
 
     return (
-        <div className='navigate-footer'>
+        <div className='navigate-footer container'>
             <Link className='navigate-footer-item' to='/'>Home</Link>
             <Link className='navigate-footer-item' to='/top'>Top</Link>
             <div className='navigate-footer-item' onClick={() => random()}>Random manga</div>
+            <Link className='navigate-footer-item' to='/favorite'>Favorite</Link>
             <Link className='navigate-footer-item' to='/login'>Login</Link>
             <button className='navigate-footer-item' onClick={() => signOut()}>Sign out</button>
         </div>

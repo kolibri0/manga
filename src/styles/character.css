@@ -1,0 +1,42 @@
+.character-img{
+    height: 254px;
+    width: 365px;
+    border-radius: 10px;
+    margin: 0 auto;
+    display: block;
+}
+.person-name{
+    text-align: center;
+    color: #8B2F20;
+}
+.character-description{
+    margin-top: 10px;
+    font-size: 20px;
+}
+.loader{
+    margin-left: auto;
+    margin-right: auto;
+    width: 6em
+}
+@media (max-width: 768px){
+    .character-slider{
+        width: 500px;
+        margin: 0 auto;
+    }
+    .character-description{
+        margin-top: 10px;
+        width: 450px;
+        margin: 0 auto;
+    }
+}
+@media (max-width: 480px){
+    .character-slider{
+        width: 445px;
+        margin: 0 auto;
+    }
+    .character-description{
+        margin-top: 10px;
+        width: 450px;
+        margin: 0 auto;
+    }
+}

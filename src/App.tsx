@@ -9,6 +9,7 @@ import { Login } from './components/login';
 import { SignIn } from './components/sign-in';
 import { LoginAuth } from './components/login-auth';
 import { AuthAll } from './components/auth-all';
+import { Favorites } from './components/favorites';
 
 function App() {
   return (
@@ -41,6 +42,11 @@ function App() {
               <LoginAuth>
                 <SignIn/>
               </LoginAuth>
+            }/>
+             <Route path='/favorite' element={
+             <AuthAll>
+              <Favorites/>
+             </AuthAll>
             }/>
         </Routes>
     </div>

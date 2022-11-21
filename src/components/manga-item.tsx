@@ -1,21 +1,22 @@
 import React from "react"
-import { Link, useParams } from 'react-router-dom';
-
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
-import '../components/manga-item.css';
-
-import { getMangaItem, getMangaRecomendation, setErrorItem } from "../store/manga-item/get-manga-item";
-import { getMangaItemCharacters, getMangaItemMore, setCharacters, setErrorMore, setMoreInfo } from "../store/manga-item/get-more-manga-item";
-import { useAppDispatch, useAppSelector } from "../store/hook";
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { FiStar } from "react-icons/fi";
 import Slider from "react-slick";
 import { SkeletonItem } from "./skeleton-item";
 import { SkeletonCharacters } from "./skeleton-characters";
 
+import { getMangaItem, getMangaRecomendation, setErrorItem } from "../store/manga-item/get-manga-item";
+import { getMangaItemCharacters, getMangaItemMore, setCharacters, setErrorMore, setMoreInfo } from "../store/manga-item/get-more-manga-item";
+import { useAppDispatch, useAppSelector } from "../store/hook";
+import { addFavorites, removeFavorites } from "../store/favorite";
 
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import '../styles/manga-item.css';
 
 export const MangaItem = () => {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate();
 
     var settings = {
         dots: true,
@@ -51,6 +52,12 @@ export const MangaItem = () => {
           }
         ]
     };
+    const styleBlack = {
+        color: 'black',
+    }
+    const styleGold ={
+        color: '#8B2F20',
+    }
 
     let { id } = useParams()
     const item = useAppSelector(state => state.featchMangaItemSlice.mangaItem)
@@ -61,6 +68,9 @@ export const MangaItem = () => {
     const errorMore = useAppSelector(state => state.featchMangaItemMoreSlice.errorMore)
     const loading = useAppSelector(state => state.featchMangaItemSlice.loading)
     const loadingMore = useAppSelector(state => state.featchMangaItemMoreSlice.loadingMore)
+    const favoriteManga = useAppSelector(state => state.persistedReducer.favorites.favorites)
+    const isFav = favoriteManga.map(res => res.mal_id)
+    const user = useAppSelector(state => state.userSlice.user)
     
     React.useEffect(()=>{
         dispatch(setCharacters([]))
@@ -74,19 +84,44 @@ export const MangaItem = () => {
         dispatch(getMangaItemCharacters(Number(id)))
    }
 
-   if(error){
-    alert(error)
-    dispatch(setErrorItem(null))
+    if(error){
+        alert(error)
+        dispatch(setErrorItem(null))
    }
-   if(errorMore){
-    alert(errorMore)
-    dispatch(setErrorMore(null))
-   }
+    if(errorMore){
+        alert(errorMore)
+        dispatch(setErrorMore(null))
+    }
+
+
+    const addFav = (mal_id: number, img: string,  name: string) =>{
+        const data = {mal_id, img, name}
+        dispatch(addFavorites(data))
+    }
+
+    const deleteFav = (item_id: number) =>{
+        dispatch(removeFavorites(item_id))
+    }
+
+   const checkFav = (item_id: number, mal_id: number, img: string, name: string) =>{
+    if(user){
+        isFav.includes(item_id) ? deleteFav(item_id) : addFav(mal_id, img, name) 
+    }else{
+        navigate('/login')
+    }
+    
+}
     return ( 
         
         <div className='manga-item'>
             { item && loading ? <div className='manga-item-content'>
                 <img className='manga-img-item' src={item?.images?.jpg?.image_url} alt="" />
+                <div className='favorit-item' 
+                    style={isFav.includes(item.mal_id) ? styleGold : styleBlack} 
+                    onClick={() =>  checkFav(item.mal_id, item.mal_id, item.images.jpg.image_url, item.title)}
+                    >
+                    <FiStar />
+                </div>
                 <div>
                     <div className="name">{item.title_english}</div>
                     <div className="name">{item.title_japanese}</div>
@@ -156,5 +191,3 @@ export const MangaItem = () => {
         </div>
     )
 }
-
-//.filter((res) => res.role == 'Main')

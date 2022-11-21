@@ -26,3 +26,10 @@
 .account:hover{
     text-decoration: underline;
 }
+@media (max-width: 320px){
+    .form{
+        width: 300px;
+        display: block;
+        margin: 100px 0 0 450px;
+    }
+}

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { loginUser, setError } from "../store/auth/auth";
 
-import './auth.css'
+import '../styles/auth.css'
 import { useAppDispatch, useAppSelector } from "../store/hook";
 
 type FormValues = {

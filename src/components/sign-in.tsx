@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { setError, signInUser,} from "../store/auth/auth";
 import { useAppDispatch, useAppSelector } from "../store/hook";
 
-import './auth.css'
+import '../styles/auth.css'
 
 type FormValues = {
     email: string
