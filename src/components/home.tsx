@@ -141,7 +141,7 @@ export const Home = () => {
                                 {res.genres[1] && <p className="genre">{res.genres[1]?.name}</p>}
                             </div>
                         {res.chapters && <p className="chapters">Chapters: {res.chapters}</p>}
-                        {res.type && <p className="type">{res.type}</p>}
+                        {res.type && <p className="type-home">{res.type}</p>}
                         {res.score && <p className="score">Score: {res.score}</p>}
                     </div>
                 </div>

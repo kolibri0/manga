@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 
 import { setError, signInUser,} from "../store/auth/auth";
@@ -17,7 +16,6 @@ export const SignIn = () =>{
         register,
         formState: {
             errors,
-            isValid,
         },
         handleSubmit,
     } = useForm<FormValues>({mode: 'onChange'})

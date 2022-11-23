@@ -20,7 +20,7 @@ export const Main = () => {
     }
 
     return (
-        <div className='navigate-footer container'>
+        <div className='navigate-footer'>
             <Link className='navigate-footer-item' to='/'>Home</Link>
             <Link className='navigate-footer-item' to='/top'>Top</Link>
             <div className='navigate-footer-item' onClick={() => random()}>Random manga</div>

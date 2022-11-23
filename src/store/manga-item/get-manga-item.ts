@@ -37,7 +37,7 @@ const featchMangaItemSlice = createSlice({
     name: 'mangaItem',
     initialState,
     reducers: {
-        setErrorItem(state, action){ state.errorItem = action.payload}
+        setErrorItem(state, action: PayloadAction<null>){ state.errorItem = action.payload}
     },
     extraReducers: (builder) =>{
         

@@ -1,4 +1,13 @@
-.manga-img-item{
+.character-name{
+    color: #8B2F20;
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+.description-title{
+    font-size: 16px;
+}
+/* .manga-img-item{
     height: 320px;
     width: 225px;
     margin-right: 20px;
@@ -24,12 +33,7 @@
     margin-bottom: 3px;
     color: #8B2F20;
 }
-.score{
-    color: #8B2F20;
-}
-.status{
-    font-size: 18px;
-}
+
 .year{
     color: rgb(112, 77, 77);
     margin-bottom: 8px;
@@ -86,7 +90,7 @@
 .characters{
     display: grid;
     /* grid-template-columns: repeat(4, 300px); */
-    grid-template-columns: repeat(6, 200px);
+    /* grid-template-columns: repeat(6, 200px);
     margin: 0 auto;
     row-gap: 20px;
     text-align: center;
@@ -98,12 +102,6 @@
 .img-character{
     height: 250px;
     width: 185px;
-}
-.character-name{
-    color: #8B2F20;
-    text-decoration: none;
-    font-size: 18px;
-    cursor: pointer;
 }
 .character-name:hover{
     color: #c75b4a;
@@ -134,116 +132,658 @@
     color: #8B2F20;
     text-align: center;
 }
-
-@media (max-width: 1200px){
-    /* .manga-item-content{
-        display: block;
-    } */
-
+*/
+@media (max-width: 2560px){
     .manga-item-content{
-        border-radius: 20px;
-        width: 1000px;
-        margin: 30px auto 0;
-        justify-content: center;
+        text-align:start;
+        display: flex;
+        position: relative;
+        margin-top: 10px;
     }
-    .characters{
-        grid-template-columns: repeat(5, 240px);
-    }
-}
-
-@media (max-width: 992px){
-    .manga-item-content{
-        border-radius: 20px;
-        width: 900px;
-        margin: 30px auto 0;
-        justify-content: center;
-    }
-    .characters{
-        grid-template-columns: repeat(5, 210px);
-        justify-content: center;
-    }
-    .slider{
-        width: 800px;
-    }
-}
-@media (max-width: 767px) {
     .manga-img-item{
-        height: 380px;
-        width: 285px;
+        height: 480px;
+        width: 400px;
+        margin: 0 15px 0 50px;
+        text-align: center;
+        justify-content: center;
     }
-    .manga-item{
-        margin: 0 auto;
+    .favorit-item{
+        position: absolute;
+        right: 60px;
+        top: 10px;
+        font-size: 50px;
+        cursor: pointer;
     }
-    .manga-item-content{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        justify-content: start;
-        margin: 0 0 0 180px;
+    .name{
+        font-size: 29px;
+        margin-bottom: 3px;
+        color: #8B2F20;
+        text-align: start;
     }
-    .type{
-        display: grid;
-        grid-template-columns: repeat(2, 200px);
-        row-gap: 20px;
+    .type-item{
+        font-size: 35px;
+        background-color: rgb(212, 211, 209);
+        border-radius: 8px;
+        margin-bottom: 5px;
+        width: 270px;
+        margin: 8px 5px 0;
+        text-align: center;
     }
     .another{
-        margin-left: 50px;
+        text-align: center;
+    }
+    .year{
+        font-size: 39px;
+    }
+    .more{
+        text-align: center;
+        display: block;
+        font-size: 20px;
+        margin: 25px auto 20px;
+        transition: 0.5s ease;
+        color: rgb(175, 117, 8);
+        cursor: pointer;
+        padding: 2px 7px;
+        background-color: #ffffff;
+        border: 1px solid #8B2F20;
+        border-radius: 5px;
     }
     .more-info{
-        margin: 0 0 0 50px;
+        text-align: center;
+    }
+    .score{
+        color: #8B2F20;
+        font-size: 39px;
+    }
+    .chapter-item{
+        font-size: 39px;
+    }
+    .status{
+        font-size: 39px;
+    }
+    .characters{
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(7, 362px);
+        font-size: 25px;
+    }
+    .character{
+        margin-bottom: 10px;
+    }
+    .img-character{
+        width: 225px;
+        height: 310px;
+    }
+    .character-text{
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: #8B2F20;
+    }
+    .recomendation-img{
+        height: 260px;
+        display: block;
+        margin: 0 auto;
+    }
+    .slider{
+        width: 2100px;
+        display: block;
+        margin: 20px auto 0;
+    }
+    .card{
+        text-align: center;
+    }
+    .description-title{
+        width: 2000px;
+        margin: 0 auto;
+        font-size: 35px;
+    }
+    .description{
+        font-weight: bold;
+        font-size: 39px;
+    }
+}
+@media (max-width: 1440px){
+    .manga-item-content{
+        text-align:start;
+        display: flex;
+        position: relative;
+        margin-top: 10px;
+    }
+    .manga-img-item{
+        height: 380px;
+        width: 300px;
+        margin: 0 15px 0 50px;
+        text-align: center;
+        justify-content: center;
+    }
+    .favorit-item{
+        position: absolute;
+        right: 60px;
+        top: 10px;
+        font-size: 30px;
+        cursor: pointer;
+    }
+    .name{
+        font-size: 20px;
+        margin-bottom: 3px;
+        color: #8B2F20;
+        text-align: start;
+    }
+    .type-item{
+        font-size: 17px;
+        background-color: rgb(212, 211, 209);
+        border-radius: 8px;
+        margin-bottom: 5px;
+        width: 150px;
+        margin: 8px 5px 0;
+        text-align: center;
+    }
+    .chapter-item{
+        font-size: 23px;
+    }
+    .year{
+        font-size: 23px;
+    }
+    .score{
+        font-size: 23px;
+    }
+    .another{
         text-align: center;
     }
     .more{
-        margin-left: 350px;
+        text-align: center;
+        display: block;
+        font-size: 20px;
+        margin: 25px auto 20px;
+        transition: 0.5s ease;
+        color: rgb(175, 117, 8);
+        cursor: pointer;
+        padding: 2px 7px;
+        background-color: #ffffff;
+        border: 1px solid #8B2F20;
+        border-radius: 5px;
+    }
+    .more-info{
+        text-align: center;
     }
     .characters{
-        grid-template-columns: repeat(4, 230px);
-        justify-content: center;
-        margin-left: 50px;
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(4, 355px);
+        font-size: 20px;
+    }
+    .character{
+        margin-bottom: 10px;
+    }
+    .status{
+        font-size: 23px;
+    }
+    .img-character{
+        width: 225px;
+        height: 310px;
     }
     .character-text{
-        margin: 0 0 10px 50px;
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: #8B2F20;
     }
-
-    @media (max-width: 490px){
-        .characters{
-           display: block;
-           justify-content: center;
-        }
-        .character-text{
-            width: 450px;
-            margin-left: 200px;
-        }
-        .manga-item{
-            width: 400px;
-            text-align: center;
-            margin-left: 200px;
-        }
-        .another{
-            width: 400px;
-            margin-left: 200px;
-        }
-        .manga-item-content{
-            width: 400px;
-           display: block;
-           margin-left: 200px;
-        }
-        .more-info{
-            text-align: center;
-            width: 450px;
-            margin-left: 170px;
-        }
-        .more{
-            margin-left: 350px;
-            width: 105px;
-        }
+    .recomendation-img{
+        height: 260px;
+        display: block;
+        margin: 0 auto;
     }
-    @media (max-width: 320px){
-        .characters{
-            grid-template-columns: repeat(2, 200px);
-            justify-content: center;
-            margin-left: 260px;
-            width: 300px;
-        }
+    .slider{
+        width: 1100px;
+        display: block;
+        margin: 20px auto 0;
     }
-
+    .card{
+        text-align: center;
+    }
+    .description-title{
+        width: 1000px;
+        margin: 0 auto;
+        font-size: 22px;
+    }
+    .description{
+        font-weight: bold;
+        font-size: 24px;
+    }
+}
+@media (max-width: 1280px){
+    .manga-item-content{
+        text-align:start;
+        display: flex;
+        position: relative;
+        margin-top: 10px;
+    }
+    .manga-img-item{
+        height: 370px;
+        width: 275px;
+        margin: 0 15px 0 50px;
+        text-align: center;
+        justify-content: center;
+    }
+    .favorit-item{
+        position: absolute;
+        right: 60px;
+        top: 10px;
+        font-size: 30px;
+        cursor: pointer;
+    }
+    .name{
+        font-size: 20px;
+        margin-bottom: 3px;
+        color: #8B2F20;
+        text-align: start;
+    }
+    .type-item{
+        font-size: 17px;
+        background-color: rgb(212, 211, 209);
+        border-radius: 8px;
+        margin-bottom: 5px;
+        width: 150px;
+        margin: 8px 5px 0;
+        text-align: center;
+    }
+    .another{
+        text-align: center;
+    }
+    .more{
+        text-align: center;
+        display: block;
+        font-size: 20px;
+        margin: 25px auto 20px;
+        transition: 0.5s ease;
+        color: rgb(175, 117, 8);
+        cursor: pointer;
+        padding: 2px 7px;
+        background-color: #ffffff;
+        border: 1px solid #8B2F20;
+        border-radius: 5px;
+    }
+    .more-info{
+        text-align: center;
+    }
+    .characters{
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(4, 310px);
+        font-size: 18px;
+    }
+    .character{
+        margin-bottom: 10px;
+    }
+    .img-character{
+        width: 225px;
+        height: 310px;
+    }
+    .character-text{
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: #8B2F20;
+    }
+    .recomendation-img{
+        height: 260px;
+        display: block;
+        margin: 0 auto;
+    }
+    .slider{
+        width: 1100px;
+        display: block;
+        margin: 20px auto 0;
+    }
+    .card{
+        text-align: center;
+    }
+    .description-title{
+        width: 850px;
+        margin: 0 auto;
+        font-size: 18px;
+    }
+}
+@media (max-width: 960px){
+    .manga-item-content{
+        text-align:start;
+        display: flex;
+        position: relative;
+        margin-top: 10px;
+    }
+    .manga-img-item{
+        height: 370px;
+        width: 275px;
+        margin: 0 15px 0 50px;
+        text-align: center;
+        justify-content: center;
+    }
+    .favorit-item{
+        position: absolute;
+        right: 40px;
+        top: 0;
+        font-size: 30px;
+        cursor: pointer;
+    }
+    .name{
+        font-size: 20px;
+        margin-bottom: 3px;
+        color: #8B2F20;
+        text-align: start;
+    }
+    .type-item{
+        font-size: 17px;
+        background-color: rgb(212, 211, 209);
+        border-radius: 8px;
+        margin-bottom: 5px;
+        width: 150px;
+        margin: 8px 5px 0;
+        text-align: center;
+    }
+    .another{
+        text-align: center;
+    }
+    .more{
+        text-align: center;
+        display: block;
+        font-size: 20px;
+        margin: 25px auto 20px;
+        transition: 0.5s ease;
+        color: rgb(175, 117, 8);
+        cursor: pointer;
+        padding: 2px 7px;
+        background-color: #ffffff;
+        border: 1px solid #8B2F20;
+        border-radius: 5px;
+    }
+    .more-info{
+        text-align: center;
+    }
+    .characters{
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(3, 315px);
+    }
+    .character{
+        margin-bottom: 10px;
+    }
+    .img-character{
+        width: 225px;
+        height: 310px;
+    }
+    .character-text{
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: #8B2F20;
+    }
+    .recomendation-img{
+        height: 260px;
+        display: block;
+        margin: 0 auto;
+    }
+    .slider{
+        width: 740px;
+        display: block;
+        margin: 20px auto 0;
+    }
+    .card{
+        text-align: center;
+    }
+    .description-title{
+        width: 580px;
+        margin: 0 auto;
+        font-size: 18px;
+    }
+    
+}
+@media (max-width: 760px){
+    .manga-item-content{
+        text-align:start;
+        display: flex;
+        position: relative;
+    }
+    .manga-img-item{
+        height: 350px;
+        width: 275px;
+        margin: 10px auto 0;
+        text-align: center;
+        justify-content: center;
+    }
+    .favorit-item{
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 30px;
+        cursor: pointer;
+    }
+    .name{
+        font-size: 20px;
+        margin-bottom: 3px;
+        color: #8B2F20;
+        text-align: start;
+    }
+    .type-item{
+        font-size: 17px;
+        background-color: rgb(212, 211, 209);
+        border-radius: 8px;
+        margin-bottom: 5px;
+        width: 150px;
+        margin: 8px 5px 0;
+        text-align: center;
+    }
+    .another{
+        text-align: center;
+    }
+    .more{
+        text-align: center;
+        display: block;
+        font-size: 20px;
+        margin: 25px auto 20px;
+        transition: 0.5s ease;
+        color: rgb(175, 117, 8);
+        cursor: pointer;
+        padding: 2px 7px;
+        background-color: #ffffff;
+        border: 1px solid #8B2F20;
+        border-radius: 5px;
+    }
+    .more-info{
+        text-align: center;
+    }
+    .characters{
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(2, 370px);
+    }
+    .character{
+        margin-bottom: 10px;
+    }
+    .img-character{
+        width: 225px;
+    }
+    .character-text{
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .recomendation-img{
+        height: 260px;
+        display: block;
+        margin: 0 auto;
+    }
+    .slider{
+        width: 740px;
+        display: block;
+        margin: 20px auto 0;
+    }
+    .card{
+        text-align: center;
+    }
+    .description-title{
+        width: 430px;
+        margin: 0 auto;
+        font-size: 18px;
+    }
+    
+}
+@media (max-width: 480px){
+    .manga-item-content{
+        text-align: center;
+        display: block;
+    }
+    .manga-img-item{
+        height: 450px;
+        width: 375px;
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        justify-content: center;
+    }
+    .name{
+        font-size: 20px;
+        margin-bottom: 3px;
+        color: #8B2F20;
+        text-align: center;
+    }
+    .type-item{
+        font-size: 17px;
+        background-color: rgb(212, 211, 209);
+        border-radius: 8px;
+        margin-bottom: 5px;
+        width: 150px;
+        margin: 0 auto 5px;
+        text-align: center;
+    }
+    .another{
+        text-align: center;
+    }
+    .more{
+        text-align: center;
+        display: block;
+        font-size: 20px;
+        margin: 25px auto 20px;
+        transition: 0.5s ease;
+        color: rgb(175, 117, 8);
+        cursor: pointer;
+        padding: 2px 7px;
+        background-color: #ffffff;
+        border: 1px solid #8B2F20;
+        border-radius: 5px;
+    }
+    .more-info{
+        text-align: center;
+    }
+    .characters{
+        text-align: center;
+        display: block;
+    }
+    .character{
+        margin-bottom: 10px;
+    }
+    .img-character{
+        width: 225px;
+    }
+    .character-text{
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .recomendation-img{
+        height: 260px;
+        display: block;
+        margin: 0 auto;
+    }
+    .slider{
+        width: 300px;
+        display: block;
+        margin: 20px auto 0;
+    }
+    .card{
+        text-align: center;
+    }
+    .description-title{
+        width: 430px;
+        margin: 0 auto;
+        font-size: 18px;
+    }
+}
+@media (max-width: 320px){
+    .manga-item-content{
+        text-align: center;
+        display: block;
+    }
+    .manga-img-item{
+        height: 350px;
+        width: 255px;
+        display: block;
+        margin: 10px auto 10px;
+    }
+    .name{
+        font-size: 20px;
+        margin-bottom: 3px;
+        color: #8B2F20;
+        text-align: center;
+    }
+    .type-item{
+        font-size: 17px;
+        background-color: rgb(212, 211, 209);
+        border-radius: 8px;
+        margin-bottom: 5px;
+        width: 150px;
+        margin: 0 auto 5px;
+        text-align: center;
+    }
+    .another{
+        text-align: center;
+    }
+    .more{
+        text-align: center;
+        display: block;
+        font-size: 20px;
+        margin: 25px auto 20px;
+        transition: 0.5s ease;
+        color: rgb(175, 117, 8);
+        cursor: pointer;
+        padding: 2px 7px;
+        background-color: #ffffff;
+        border: 1px solid #8B2F20;
+        border-radius: 5px;
+    }
+    .more-info{
+        text-align: center;
+    }
+    .characters{
+        text-align: center;
+    }
+    .character{
+        margin-bottom: 10px;
+    }
+    .img-character{
+        width: 225px;
+    }
+    .character-text{
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .recomendation-img{
+        height: 260px;
+        display: block;
+        margin: 0 auto;
+    }
+    .slider{
+        width: 300px;
+        display: block;
+        margin: 20px auto 0;
+    }
+    .card{
+        text-align: center;
+    }
+    .description-title{
+        width: 290px;
+        margin: 0 auto;
+        font-size: 18px;
+    }
 }

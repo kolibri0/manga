@@ -1,7 +1,9 @@
-.navigate-footer-item{
+ .navigate-footer-item{
+    font-family: 'Times New Roman', Times, serif;
     color: black;
     text-decoration: none;
-    margin-right: 20px;
+    padding: 0;
+    margin: 0;
     cursor: pointer;
     background-color: #ffffff;
     border: none;
@@ -9,16 +11,107 @@
 }
 .navigate-footer-item:hover{
     color: #8B2F20;
-    text-decoration: none;
-    margin-right: 20px;
+    text-decoration: underline;
+}
+/*.navigate-footer.container{
+    width: 1200px;
 }
 .navigate-footer{
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-}
-@media (max-width: 767px){
-    .navigate-footer.container{
-        justify-content:center;
+}*/
+@media (max-width: 2560px){
+    .navigate-footer{
+        width: 2551px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+    .navigate-footer-item{
+        margin-right: 15px;
+        font-size: 23px;
     }
 }
+@media (max-width: 1440px){
+    .navigate-footer{
+        width: 1431px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+    .navigate-footer-item{
+        margin-right: 15px;
+        font-size: 20px;
+    }
+}
+@media (max-width: 1280px){
+    .navigate-footer{
+        width: 1271px;
+        text-align: center;
+        display: flex;
+        justify-content: center;;
+    }
+    .navigate-footer-item{
+        margin-right: 15px;
+        font-size: 18px;
+    }
+}
+@media (max-width: 960px){
+    .navigate-footer{
+        width: 951px;
+        text-align: center;
+        display: flex;
+    }
+    .navigate-footer-item{
+        font-size: 18px;
+        margin-right: 15px;
+    }
+}
+@media (max-width: 760px){
+    .navigate-footer{
+        width: 751px;
+        text-align: center;
+        display: flex;
+    }
+    .navigate-footer-item{
+        font-size: 16px;
+        margin-left: 10px;
+    }
+}
+@media (max-width: 480px){
+    .navigate-footer{
+        width: 471px;
+        text-align: center;
+        display: flex;
+    }
+    .navigate-footer-item{
+        font-size: 14px;
+    }
+}
+@media (max-width: 320px){
+    .navigate-footer{
+        width: 311px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+    .navigate-footer-item{
+        font-size: 10px;
+        margin: 0 4px 0 0;
+    }
+}
+/* @media (max-width: 480px){
+    html{
+        width: 480px;
+    }
+    .App{
+        width: 480px;
+        margin: 0 auto;
+    }
+    .navigate-footer.container{
+        width: 480px;
+        justify-content: space-around;
+    }
+} */
+

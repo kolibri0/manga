@@ -1,4 +1,4 @@
-.pagination li{
+/* .pagination li{
     display: inline-block;
     margin-right: 10px;
     padding: 2px 5px;
@@ -15,25 +15,20 @@ li.selected{
     background-color: #8B2F20;
     color: #ffffff;
     border-radius: 5px;
-}
-ul.pagination{
-    display: flex;
-    /* list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px; */
+}*/
+/* ul.pagination{
+    display: none;
+    
     margin-top: 30px;
     justify-content: end;
 }
 ul.slick-dots{
     margin: 0 auto;
-}
+} */
 
-@media (max-width: 490px){
+/* @media (max-width: 490px){
     ul.pagination{
         display: block;
         margin-left: 320px;
     }
-}
+}  */

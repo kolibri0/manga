@@ -126,7 +126,7 @@ export const MangaItem = () => {
                     <div className="name">{item.title_english}</div>
                     <div className="name">{item.title_japanese}</div>
                     <div className="score">Score: {item.score}</div>
-                    <div>{item.chapters &&  <div>Chapters: {item.chapters}</div>}</div>
+                    <div>{item.chapters &&  <div className="chapter-item">Chapters: {item.chapters}</div>}</div>
                     <div className="status">{item.status}</div>
                     <div className="year">Published {item?.published?.prop.from.day}.{item.published?.prop.from.month}.{item.published?.prop.from.year}</div>
                     <div className='type'>{item.genres && item.genres.map((res) => <div className='type-item' key={res.name}>{res.name}</div>)}</div>
