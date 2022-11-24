@@ -26,7 +26,7 @@ export const Main = () => {
             <div className='navigate-footer-item' onClick={() => random()}>Random manga</div>
             <Link className='navigate-footer-item' to='/favorite'>Favorite</Link>
             <Link className='navigate-footer-item' to='/login'>Login</Link>
-            <button className='navigate-footer-item' onClick={() => signOut()}>Sign out</button>
+            <div className='navigate-footer-item' onClick={() => signOut()}>Sign out</div>
         </div>
     )
 }

@@ -109,7 +109,7 @@ export const Home = () => {
 
     //dispatch logic end/////////////////////////////////////////////////////
     return (
-        <div className="container">
+        <>
             <input className="search-input" type="text" placeholder="Enter manga name..." onChange={e =>searchManga(e)}/>
             
             <select className="select" defaultValue={options[1].value} onChange={(e) => setSelect(e)}>
@@ -142,7 +142,7 @@ export const Home = () => {
                             </div>
                         {res.chapters && <p className="chapters">Chapters: {res.chapters}</p>}
                         {res.type && <p className="type-home">{res.type}</p>}
-                        {res.score && <p className="score">Score: {res.score}</p>}
+                        {res.score && <p className="score-home">Score: {res.score}</p>}
                     </div>
                 </div>
                 )):
@@ -161,7 +161,7 @@ export const Home = () => {
             previousLabel="<"
             />
 
-        </div>
+        </>
 
     )
 }

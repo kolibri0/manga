@@ -174,12 +174,12 @@
         margin: 0 auto 10px;
     }
 }
-@media (max-width: 760px){
+@media (max-width: 720px){
     .contain-form{
         text-align: center;
     }
     .form{
-        width: 760px;
+        width: 720px;
         height: 340px;
         border-radius: 5px;
         display: block;

@@ -122,7 +122,7 @@ export const MangaItem = () => {
                     >
                     <FiStar />
                 </div>
-                <div>
+                <div className="desc-item">
                     <div className="name">{item.title_english}</div>
                     <div className="name">{item.title_japanese}</div>
                     <div className="score">Score: {item.score}</div>

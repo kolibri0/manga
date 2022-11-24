@@ -23,82 +23,43 @@
 }*/
 @media (max-width: 2560px){
     .navigate-footer{
-        width: 2551px;
+        width: 90vw;
         text-align: center;
-        display: flex;
-        justify-content: center;
+        margin: 10px auto 0;
     }
     .navigate-footer-item{
-        margin-right: 15px;
-        font-size: 23px;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 2.5em;
+        padding: 3px 15px;
     }
 }
-@media (max-width: 1440px){
+@media (max-width: 1400px){
     .navigate-footer{
-        width: 1431px;
+        width: 90vw;
         text-align: center;
-        display: flex;
-        justify-content: center;
+        margin: 10px auto 0;
     }
     .navigate-footer-item{
-        margin-right: 15px;
-        font-size: 20px;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 1.3em;
+        padding: 3px 5px;
     }
 }
 @media (max-width: 1280px){
     .navigate-footer{
-        width: 1271px;
+        width: 90vw;
         text-align: center;
-        display: flex;
-        justify-content: center;;
+        margin: 10px auto 0;
     }
     .navigate-footer-item{
-        margin-right: 15px;
-        font-size: 18px;
-    }
-}
-@media (max-width: 960px){
-    .navigate-footer{
-        width: 951px;
-        text-align: center;
-        display: flex;
-    }
-    .navigate-footer-item{
-        font-size: 18px;
-        margin-right: 15px;
-    }
-}
-@media (max-width: 760px){
-    .navigate-footer{
-        width: 751px;
-        text-align: center;
-        display: flex;
-    }
-    .navigate-footer-item{
-        font-size: 16px;
-        margin-left: 10px;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 0.9em;
+        padding: 3px 5px;
     }
 }
 @media (max-width: 480px){
-    .navigate-footer{
-        width: 471px;
-        text-align: center;
-        display: flex;
-    }
     .navigate-footer-item{
-        font-size: 14px;
-    }
-}
-@media (max-width: 320px){
-    .navigate-footer{
-        width: 311px;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-    }
-    .navigate-footer-item{
-        font-size: 10px;
-        margin: 0 4px 0 0;
+        font-size: 0.63em;
     }
 }
 /* @media (max-width: 480px){
