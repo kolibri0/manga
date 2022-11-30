@@ -1,70 +1,25 @@
 
-/* .contain-form{
-    text-align: center;
-}
-/* .form{
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 350px;
-    height: 370px;
-    margin: 100px auto 0;
-} */
-/* .input-item{
-    display: block;
-    margin: 0 auto 10px;
-}
-.submit{
-    display: block;
-    margin: 20px auto 20px;
-    color: #8B2F20;
-    cursor: pointer;
-    background-color: #ffffff;
-    border: 1px solid #8B2F20;
-    border-radius: 3px;
-    display: block;
-}
-.submit:hover{
-    color: black;
-    border: 1px solid black;
-    
-}
-.account{
-    color: #8B2F20;
-    font-size: 18px;
-    text-decoration: none;
-    cursor: pointer;
-}
-.account:hover{
-    text-decoration: underline;
-} */ 
-/* @media (max-width: 1600px){
-    .form{
-        width: 300px;
-        display: block;
-        margin: 100px 0 0 450px;
-        /* margin: 100px auto 0; */
-    /* } */
-
-/* } */
-@media (max-width: 1600px){
+@media (max-width: 2560px){
     .contain-form{
+        font-size: 1.3em;
         text-align: center;
+        width: 100vw;
     }
     .form{
-        width: 1600px;
         height: 340px;
         border-radius: 5px;
         display: block;
         border: none;
-        margin-top: 50px;
+        margin: 50px auto 0;
     }
     .input-item{
+        font-size: 1.3em;
         display: block;
         margin: 0 auto 10px;
     }
     .account{
         color: #8B2F20;
-        font-size: 18px;
+        font-size: 1.3em;
         text-decoration: none;
         cursor: pointer;
     }
@@ -77,6 +32,8 @@
         border: 1px solid #8B2F20;
         border-radius: 3px;
         display: block;
+        padding: 3px 5px;
+        font-size: 1.3em;
     }
     .submit:hover{
         color: black;
@@ -89,17 +46,17 @@
     }
 
 }
-@media (max-width: 1280px){
+@media (max-width: 1400px){
     .contain-form{
         text-align: center;
+        font-size: 1em;
     }
     .form{
-        width: 1280px;
         height: 340px;
         border-radius: 5px;
         display: block;
         border: none;
-        margin-top: 50px;
+        margin-top: 50px auto 0;
     }
     .input-item{
         display: block;
@@ -131,176 +88,4 @@
         margin: 0 auto 10px;
     }
 
-}
-@media (max-width: 960px){
-    .contain-form{
-        text-align: center;
-    }
-    .form{
-        width: 960px;
-        height: 340px;
-        border-radius: 5px;
-        display: block;
-        border: none;
-        margin-top: 50px;
-    }
-    .input-item{
-        display: block;
-        margin: 0 auto 10px;
-    }
-    .account{
-        color: #8B2F20;
-        font-size: 18px;
-        text-decoration: none;
-        cursor: pointer;
-    }
-    .submit{
-        display: block;
-        margin: 20px auto 20px;
-        color: #8B2F20;
-        cursor: pointer;
-        background-color: #ffffff;
-        border: 1px solid #8B2F20;
-        border-radius: 3px;
-        display: block;
-    }
-    .submit:hover{
-        color: black;
-        border: 1px solid black;
-        
-    }
-    .input-item{
-        display: block;
-        margin: 0 auto 10px;
-    }
-}
-@media (max-width: 720px){
-    .contain-form{
-        text-align: center;
-    }
-    .form{
-        width: 720px;
-        height: 340px;
-        border-radius: 5px;
-        display: block;
-        border: none;
-        margin-top: 50px;
-    }
-    .input-item{
-        display: block;
-        margin: 0 auto 10px;
-    }
-    .account{
-        color: #8B2F20;
-        font-size: 18px;
-        text-decoration: none;
-        cursor: pointer;
-    }
-    .submit{
-        display: block;
-        margin: 20px auto 20px;
-        color: #8B2F20;
-        cursor: pointer;
-        background-color: #ffffff;
-        border: 1px solid #8B2F20;
-        border-radius: 3px;
-        display: block;
-    }
-    .submit:hover{
-        color: black;
-        border: 1px solid black;
-        
-    }
-    .input-item{
-        display: block;
-        margin: 0 auto 10px;
-    }
-
-}
-@media (max-width: 480px){
-    .contain-form{
-        text-align: center;
-    }
-    .form{
-        width: 480px;
-        height: 340px;
-        border-radius: 5px;
-        display: block;
-        border: none;
-        margin-top: 50px;
-    }
-    .input-item{
-        display: block;
-        margin: 0 auto 10px;
-    }
-    .account{
-        color: #8B2F20;
-        font-size: 18px;
-        text-decoration: none;
-        cursor: pointer;
-    }
-    .submit{
-        display: block;
-        margin: 20px auto 20px;
-        color: #8B2F20;
-        cursor: pointer;
-        background-color: #ffffff;
-        border: 1px solid #8B2F20;
-        border-radius: 3px;
-        display: block;
-    }
-    .submit:hover{
-        color: black;
-        border: 1px solid black;
-        
-    }
-    .input-item{
-        display: block;
-        margin: 0 auto 10px;
-    }
-}
-
-@media (max-width: 320px){
-    .contain-form{
-        text-align: center;
-    }
-    .form{
-        width: 320px;
-        height: 340px;
-        border-radius: 5px;
-        display: block;
-        border: none;
-        margin: 0;
-        /* margin: 100px 0 0 450px; */
-        /* border: 1px solid black; */
-    }
-    .input-item{
-        display: block;
-        margin: 0 auto 10px;
-    }
-    .account{
-        color: #8B2F20;
-        font-size: 18px;
-        text-decoration: none;
-        cursor: pointer;
-    }
-    .submit{
-        display: block;
-        margin: 20px auto 20px;
-        color: #8B2F20;
-        cursor: pointer;
-        background-color: #ffffff;
-        border: 1px solid #8B2F20;
-        border-radius: 3px;
-        display: block;
-    }
-    .submit:hover{
-        color: black;
-        border: 1px solid black;
-        
-    }
-    .input-item{
-        display: block;
-        margin: 0 auto 10px;
-    }
 }

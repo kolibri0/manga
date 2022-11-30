@@ -58,6 +58,7 @@ import '../styles/home.css'
         dispatch(removeFavorites(item_id))
     }
 
+    
     const checkFav = (item_id: number, mal_id: number, img: string, name: string) =>{
         if(user){
             isFav.includes(item_id) ? deleteFav(item_id) : addFav(mal_id, img, name) 
@@ -71,8 +72,8 @@ import '../styles/home.css'
     return (
         <div className="container">
             <div className="contain-items">
-                {items && loading ? items.map((res, i) => (
-                    <div className="contain-item" key={i}>
+                {items && loading ? items.map((res) => (
+                    <div className="contain-item" key={res.mal_id}>
                         <div className="name-item">
                             <Link to={'/' + res.mal_id}>
                                 <img className="img-item" src={res.images.jpg.image_url} alt="" />

@@ -18,8 +18,8 @@ export const Favorites = () => {
     return(
     <div>
         <div className="favorites">
-            {favorites[0] ? favorites.map((favorite, i) => (
-            <div className="favorite-item">
+            {favorites[0] ? favorites.map((favorite) => (
+            <div key={favorite.mal_id} className="favorite-item">
                 <div className="favorite-top">
                     <Link className="favorite-name" to={'/' + favorite.mal_id}>
                         <img className="favorite-img" src={favorite.img} alt="" />

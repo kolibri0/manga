@@ -65,13 +65,13 @@ li.selected{
     .contain-item{
         padding: 3px;
         display: flex;
-        height: 25vh;
+        height: 370px;
         width: 22vw;
         position: relative;
         font-size: 1.3em;
     }
     .img-item{
-        height: 25vh;
+        height: 350px;
         width: 11vw;
     }
     .favorit{
@@ -140,9 +140,10 @@ li.selected{
         width: 29vw;
         position: relative;
         font-size: 1.1em;
+        height: 230px;
     }
-    .img-item{
-        height: 27vh;
+    .img-item {
+        height: 220px;
         width: 13vw;
     }
     .favorit{
@@ -192,12 +193,12 @@ li.selected{
     .contain-item{
         padding: 3px;
         display: flex;
-        height: 30vh;
+        height: 200px;
         width: 41vw;
         position: relative;
     }
     .img-item{
-        height: 28vh;
+        height: 190px;
         width: 15vw;
     }
     .favorit{
@@ -251,7 +252,7 @@ li.selected{
         padding: 1.5vh 1vw;
         text-align: center;
         position: relative;
-        height: 85vh;
+        height: 550px;
         width: 90vw;
         margin-bottom: 10px;
     }

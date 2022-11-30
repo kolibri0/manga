@@ -117,7 +117,7 @@ export const Home = () => {
             </select>
 
             <div className="contain-items">
-                {items && loading ? items.map((res, i) => (
+                {items && loading ? items.map((res) => (
                     <div className="contain-item" key={res.mal_id}>
                         <div className="name-item favorite">
                             <Link to={'/' + res.mal_id}>
