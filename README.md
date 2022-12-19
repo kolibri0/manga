@@ -1,4 +1,4 @@
-# Pet Project 
+# Pet Project "Manga search"
 
 ## this project was prepared as a consolidation of the material covered in the React courses
 
