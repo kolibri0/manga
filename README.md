@@ -12,4 +12,5 @@ if you want to see the result follow the link: [manga-afa82.web.app/](https://ma
 * Redux toolkit
 * React hook-form
 * TypeScript
+* Firebase
 * axios
