@@ -6,10 +6,10 @@ if you want to see the result follow the link: manga-afa82.web.app/
 
 ### This project uses technologies such as:
 
-*HTML
-*CSS
-*React 
-*Redux toolkit
-*React hook-form
-*TypeScript
-*axios
+* HTML
+* CSS
+* React 
+* Redux toolkit
+* React hook-form
+* TypeScript
+* axios
