@@ -34,7 +34,7 @@ export const SignIn = () =>{
         <div className="contain-form">
             <form className="form" onSubmit={handleSubmit(signIn)}>
                 <h1>Sign in</h1>
-                <input className="email input-item" placeholder="email..." {...register('email', {
+                <input className="email input-item" placeholder="email..." aria-label="name" {...register('email', {
                     required: {
                         value: true, 
                         message: 'поле обяз'
@@ -46,7 +46,7 @@ export const SignIn = () =>{
                 })}/>
                 {errors.email && <p>{errors.email.message}</p>}
 
-                <input className="password input-item" placeholder="password..." {...register('password', {
+                <input className="password input-item" placeholder="password..." aria-label="password" {...register('password', {
                     required: {
                         value: true, 
                         message: 'поле обяз'
@@ -58,7 +58,7 @@ export const SignIn = () =>{
                 })}/>
                 {errors.password && <p>{errors.password.message}</p>}
 
-                <input className="submit" value='submit' type={'submit'}/>
+                <input className="submit" value='submit' role={'button'} type={'submit'}/>
             </form>
         </div>
     )   

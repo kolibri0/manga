@@ -13,13 +13,13 @@ import { FiStar } from "react-icons/fi";
 
 import '../styles/home.css'
 import '../styles/paginate.css'
+import { Login } from './login';
 interface option{
     value: string,
     label: string
 }
 
 export const Home = () => {
-    const navigate = useNavigate();
     //just dispatch)
     const dispatch = useAppDispatch()
     const styleBlack = {
@@ -48,7 +48,8 @@ export const Home = () => {
 
     const favoriteManga = useAppSelector(state => state.persistedReducer.favorites.favorites)
     
-    
+    const isFav: number[] = favoriteManga ? favoriteManga.map(res => res.mal_id) : []
+
     //manga type
     const options: option[] = [
         { value: '', label: 'All' },
@@ -61,7 +62,7 @@ export const Home = () => {
         { value: 'manhua', label: 'Manhua' }
     ]
     
-    const isFav = favoriteManga.map(res => res.mal_id)
+    
     //request at api
     React.useEffect(() => {
         dispatch(getMangaHome({selected, selectedPage, letter}))
@@ -102,7 +103,7 @@ export const Home = () => {
         if(user){
             isFav.includes(item_id) ? deleteFav(item_id) : addFav(mal_id, img, name) 
         }else{
-            navigate('/login')
+            return <Login />
         }
         
     }
@@ -110,14 +111,14 @@ export const Home = () => {
     //dispatch logic end/////////////////////////////////////////////////////
     return (
         <>
-            <input className="search-input" type="text" placeholder="Enter manga name..." onChange={e =>searchManga(e)}/>
+            <input className="search-input" data-testid={'search'} type="text" placeholder="Enter manga name..." onChange={e =>searchManga(e)}/>
             
-            <select className="select" defaultValue={options[1].value} onChange={(e) => setSelect(e)}>
+            <select className="select" data-testid={'select'} defaultValue={options[1].value} onChange={(e) => setSelect(e)}>
                 {options.map((res)=> <option key={res.label} value={res.value}>{res.label}</option>)}
             </select>
 
-            <div className="contain-items">
-                {items && loading ? items.map((res) => (
+            { items && loading ? <div className="contain-items" >
+                {items.map((res) => (
                     <div className="contain-item" key={res.mal_id}>
                         <div className="name-item favorite">
                             <Link to={'/' + res.mal_id}>
@@ -143,13 +144,12 @@ export const Home = () => {
                         {res.chapters && <p className="chapters">Chapters: {res.chapters}</p>}
                         {res.type && <p className="type-home">{res.type}</p>}
                         {res.score && <p className="score-home">Score: {res.score}</p>}
+                        </div>
                     </div>
-                </div>
-                )):
-                null
-                }
-            </div>
-            <>{!loading ? <div className="contain-items">{[...Array(12)].map(() => <div className="contain-item"><Skeleton /></div>)}</div>: null}</>
+                    ))}
+                
+            </div>: null}
+            <>{!loading ? <div className="contain-items">{[...Array(12)].map((_, i) => <div key={i} className="contain-item"><Skeleton /></div>)}</div>: null}</>
 
             <ReactPaginate
             className="pagination"
@@ -165,4 +165,3 @@ export const Home = () => {
 
     )
 }
-{/* <>{load ? <div className="contain-items">{[...Array(9)].map(() => <div className="contain-item"><Skeleton /></div>)}</div>: null}</> */}

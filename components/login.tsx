@@ -39,7 +39,7 @@ export const Login = () =>{
         <div className="contain-form">
             <form className="form" onSubmit={handleSubmit(login)}>
                 <h1>Login</h1> 
-                <input defaultValue={''} className="email input-item" placeholder="email..." {...register('email', {
+                <input defaultValue={''} className="email input-item" aria-label="name" placeholder="email..." {...register('email', {
                     required: {
                         value: true, 
                         message: 'Required field'
@@ -51,7 +51,7 @@ export const Login = () =>{
                 })}/>
                 {errors.email && <p>{errors.email.message}</p>}
 
-                <input defaultValue={''} className="password input-item" placeholder="password..." {...register('password', {
+                <input defaultValue={''} className="password input-item" aria-label="password" placeholder="password..." {...register('password', {
                     required: {
                         value: true, 
                         message: 'Required field'
@@ -63,9 +63,9 @@ export const Login = () =>{
                 })}/>
                {errors.password && <p>{errors.password.message}</p>}
 
-                <input className="submit" value='submit' type={'submit'}/>
+                <input className="submit" value='submit' type={'submit'} role={'button'}/>
 
-                <Link className="account" to={'/signIn'}>Have account?</Link>
+                <Link className="account" to={'/signIn'} role={'link'}>Have account?</Link>
             </form>
         </div>
     )   
