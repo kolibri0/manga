@@ -1,0 +1,145 @@
+.bodyPage{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding-top: 220px;
+  /* background-color: red; */
+}
+.backImage{
+  width: 100%;
+  height: 600px;
+  top: 0;
+  right: 0;
+  position: absolute;
+  object-fit: cover;
+}
+.wrap{
+  background-color: red;
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  top: 450px;
+  background: linear-gradient(rgb(209, 53, 49, 0), rgb(24, 24, 24));
+}
+.containTitle{
+  width: 1200px;
+  margin: 0 auto 0;
+  background-color: rgb(48, 44, 44);
+  position: relative;
+  border-radius: 10px 10px 0 0;
+}
+.up{
+  display: flex;
+  height: 250px;
+}
+.img{
+  position: absolute;
+  left: 40px;
+  top: -40px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 8px 5px rgba(255, 255, 255, 0.2);
+  height: 280px;
+}
+.containImg{
+  /* border: 1px solid red; */
+  width: 250px;
+
+}
+.infoTitle{
+  color: white;
+}
+.title{
+  margin-top: 10px;
+  font-size: 25px;
+}
+.genres{
+  margin-top: 10px;
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.genre{
+  border: 1px  solid white;
+  padding: 2px 5px;
+  margin-right: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.synopsis{
+  word-break:keep-all;
+  width: 925px;
+}
+.down{
+  display: flex;
+  color: white;
+  height: 350px;
+}
+.left{
+  margin: 20px 10px 0px 40px;
+}
+.card{
+  border: 2px solid rgb(115, 115, 115);
+  border-radius: 5px;
+  padding: 4px 5px;
+  width: 200px;
+  background-color: rgb(27, 22, 22);
+  color: rgb(237, 237, 237);
+}
+.cardItem{
+  padding: 7px 8px;
+  border-radius: 5px;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+.cardItem:hover{
+  background-color: rgb(61, 61, 61);
+}
+.right{
+  width: 920px;
+  /* border: 1px solid red; */
+  text-align: center;
+  margin-top: 20px;
+}
+.slider{
+  width: 800px;
+  margin: 0 auto;
+}
+.cardItemRec{
+  width: 180px;
+  justify-content: center;
+  max-width: 180px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  user-select: none;
+}
+.sliderImg{
+  width: 180px;
+  height: 220px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+.cardTitleRec{
+  text-align: center;
+  color: white;
+}
+.cardTitleRec:hover{
+  color: rgb(255, 179, 0);
+}
+.type{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.typeItem{
+  cursor: pointer;
+  padding: 2px 8px;
+}
+.typeItemActive{
+  color: rgb(255, 179, 0);
+  cursor: pointer;
+  border-bottom: 1px solid rgb(255, 179, 0);
+  padding: 2px 8px;
+  border-radius: 2px;
+}
