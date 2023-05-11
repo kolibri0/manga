@@ -149,3 +149,27 @@
 .cardTitle:hover{
   color: rgb(255, 179, 0);
 }
+.pagination{
+  border: 1px solid white;
+  margin-left: 300px;
+  margin-top: 40px;
+  max-width:fit-content;
+  /* width: 330px; */
+  padding: 3px 32px;
+  border-radius: 10px;
+  justify-content: center;
+}
+.pagination li{
+  display: inline-block;
+  margin-right: 2px;
+  padding: 2px 5px;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+.pagination li:hover{
+  background-color: transparent;
+  color: rgb(255, 179, 0);
+  border-radius: 5px;
+}

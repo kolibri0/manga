@@ -11,7 +11,7 @@
     border-radius: 5px;
 }
 
-li.selected{
+.paginate li.selected{
     background-color: #8B2F20;
     color: #ffffff;
     border-radius: 5px;

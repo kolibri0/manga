@@ -34,11 +34,20 @@ const MangaPage: React.FC<iProps> = ({ manga, statistic, recommendations }) => {
     const { data } = await axios.get(`https://api.jikan.moe/v4/manga/${id}/characters`)
     if (data) setCharacters(data.data.slice(0, 20))
   }
+
+  const changeType = (type) => {
+    setSelectedType(type)
+    getCharacters()
+  }
+
   React.useEffect(() => {
     setImages(null)
-    getImages()
-    getCharacters()
+    setTimeout(() => {
+      getImages()
+    }, 1500);
   }, [id])
+
+
   return (<>
     <div className={styles.bodyPage}>
       {images
@@ -69,9 +78,11 @@ const MangaPage: React.FC<iProps> = ({ manga, statistic, recommendations }) => {
           </div>
           <div className={styles.right}>
             <div className={styles.type}>
-              {type.map((typeItem) => (
-                <div className={typeItem === selectedType ? styles.typeItemActive : styles.typeItem} onClick={() => setSelectedType(typeItem)}>{typeItem}</div>
-              ))}
+              <div className={'Recommendations' === selectedType ? styles.typeItemActive : styles.typeItem} onClick={() => setSelectedType('Recommendations')}>Recommendations</div>
+              <div className={'Pictures' === selectedType ? styles.typeItemActive : styles.typeItem} onClick={() => setSelectedType('Pictures')}>Pictures</div>
+              <div className={'Characters' === selectedType ? styles.typeItemActive : styles.typeItem} onClick={() => changeType('Characters')}>Characters</div>
+
+
             </div>
             {recommendations && selectedType === "Recommendations"
               ? <Slider {...settings} className={styles.slider}>
@@ -128,7 +139,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     props: {
       manga: manga.data.data,
       statistic: statistic.data.data || null,
-      recommendations: recommendations.data.data.slice(0, 20),
+      recommendations: recommendations.data.data.slice(0, 20)
     }
   }
 

@@ -14,9 +14,10 @@ const Menu: React.FC<IProps> = ({ redirectToType }) => {
   const router = useRouter()
   const [selectedType, setSelectedType] = React.useState('')
   React.useEffect(() => {
-    setSelectedType(router.pathname.slice(1))
+    // setSelectedType(router.pathname.slice(1))
+    setSelectedType(router.pathname.split('/').slice(1)[0])
   }, [])
-  console.log(selectedType)
+  // console.log(selectedType)
   return (<>
     <div className={styles.container}>
       <div className={styles.containMenu}>
