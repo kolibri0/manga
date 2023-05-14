@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { BiSearchAlt2 } from 'react-icons/bi'
 import ReactPaginate from 'react-paginate';
 import debounce from 'lodash.debounce'
+import ContentItem from '../../components/ContentItem';
 
 const TypeManga = ['default', 'top']
 
@@ -18,8 +19,6 @@ const Home = ({ manga, pagination }) => {
   const [value, setValue] = React.useState('')
   const [page, setPage] = React.useState(1)
   const [mangaType, setMangaType] = React.useState(TypeManga[0])
-  // console.log(manga)
-  // console.log(pagination.last_visible_page)
 
   React.useEffect(() => {
     if (mangaType === 'default' && (serchMangaText.length || serchMangaText.length == 0) && page) {
@@ -44,10 +43,12 @@ const Home = ({ manga, pagination }) => {
   const redirectToType = (type) => {
     router.push(`/${type}`)
   }
-  const redirectToGenres = () => [
+  const redirectToGenres = () => {
     router.push(`/manga/genres`)
-  ]
-
+  }
+  const redirectToItem = (id: string) => {
+    router.push(`/manga/${id}`)
+  }
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       serchManga()
@@ -106,7 +107,6 @@ const Home = ({ manga, pagination }) => {
 
   const getRandomManga = async () => {
     const { data } = await axios.get(`https://api.jikan.moe/v4/random/manga`)
-    // console.log(data.data.mal_id)
     router.push(`/manga/${data.data.mal_id}`)
   }
 
@@ -132,34 +132,12 @@ const Home = ({ manga, pagination }) => {
           <div className={styles.navItem} onClick={() => redirectToGenres()}>Genres</div>
           <div className={styles.navItem} onClick={() => changeMangaType()}>{checkMangaTypeUrl() ? 'Manga' : 'Top manga'}</div>
           <div className={styles.navItem} onClick={() => getRandomManga()}>Random manga</div>
-          <div className={styles.navItem}>Top characters</div>
         </div>
       </div>
       <div className={styles.containGrid}>
         {
           manga
-            ? manga.map((mangaItem) => (
-              <Link className={styles.CardItem} key={mangaItem.mal_id} href={`/manga/${mangaItem.mal_id}`}>
-                <div className={styles.containImg}>
-                  <img className={styles.img} src={mangaItem?.images.jpg.image_url} alt="" />
-                  <div className={styles.descriptionBody}>
-                    <div className={styles.info}>
-                      <div>{mangaItem.status}</div>
-                      <div className={styles.score}>{mangaItem.score}</div>
-                    </div>
-                    <div className={styles.type}>{mangaItem.type}</div>
-                    {
-                      mangaItem.synopsis
-                        ? <div className={styles.synopsis}>{mangaItem.synopsis.slice(0, 200) + '...'}</div>
-                        : null
-                    }
-                  </div>
-                </div>
-                <div>
-                  <div className={styles.cardTitle}>{mangaItem?.title}</div>
-                </div>
-              </Link>
-            ))
+            ? manga.map((mangaItem) => <ContentItem styles={styles} contentItem={mangaItem} redirectToItem={redirectToItem} />)
             : null
         }
       </div>

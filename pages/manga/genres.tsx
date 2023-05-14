@@ -20,6 +20,7 @@ const Genres = ({ genres, manga, pagination }) => {
   const [selectedGenres, setSelectedGenres] = React.useState<string>('')
   const [selectedSort, setSelectedSort] = React.useState<string>('')
   const [selectedSortType, setSelectedSortType] = React.useState<string>('')
+  const [letter, setLetter] = React.useState('')
   const [selecyedType, setSelectedType] = React.useState("")
   const [page, setPage] = React.useState(1)
   const [showSort, setShowSort] = React.useState(false)
@@ -33,6 +34,7 @@ const Genres = ({ genres, manga, pagination }) => {
         type: selecyedType,
         order_by: selectedSort,
         sort: selectedSortType,
+        letter,
         page: page
       }
     })
@@ -62,6 +64,7 @@ const Genres = ({ genres, manga, pagination }) => {
         type: selecyedType,
         order_by: selectedSort,
         sort: selectedSortType,
+        letter,
         page: 1
       }
     })
@@ -85,6 +88,7 @@ const Genres = ({ genres, manga, pagination }) => {
     setCheckedState(new Array(genres.length).fill(false))
     setSelectedSortType('')
     setSelectedGenres('')
+    setLetter('')
     setPage(1)
     router.push({
       pathname: '/manga/genres',
@@ -93,6 +97,7 @@ const Genres = ({ genres, manga, pagination }) => {
         type: '',
         order_by: '',
         sort: '',
+        letter: '',
         page: 1
       }
     })
@@ -140,7 +145,7 @@ const Genres = ({ genres, manga, pagination }) => {
               }
             </div>
           </div>
-          <input className={styles.leftInput} type="text" placeholder='Search by title...' />
+          <input className={styles.leftInput} type="text" placeholder='Search by title...' value={letter} onChange={(e) => setLetter(e.target.value)} />
           <div className={styles.containManga}>
             {
               manga
@@ -240,7 +245,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { data } = await axios.get(`https://api.jikan.moe/v4/genres/manga`)
 
   if (query.genres?.length || query.type?.length || query.order_by?.length || query.sort?.length || query.page) {
-    res = await axios.get(`https://api.jikan.moe/v4/manga?type=${query.type}&genres=${query.genres}&order_by=${query.order_by}&sort=${query.sort}&page=${query.page}&genres_exclude=12,26,28,44,49,53,56`)
+    res = await axios.get(`https://api.jikan.moe/v4/manga?type=${query.type}&genres=${query.genres}&order_by=${query.order_by}&sort=${query.sort}&letter=${query.letter}&page=${query.page}&genres_exclude=12,26,28,44,49,53,56`)
   } else {
     res = await axios.get(`https://api.jikan.moe/v4/manga?genres_exclude=12,26,28,44,49,53,56`)
   }
