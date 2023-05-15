@@ -1,38 +1,35 @@
 import axios from 'axios';
 import { GetServerSideProps } from 'next/types';
 import * as React from 'react';
+import styles from '../../styles/genres.module.css'
 import Menu from '../../components/Menu'
 import { useRouter } from 'next/router';
-import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
-import styles from '../../styles/genres.module.css'
+import { MdKeyboardArrowDown, MdKeyboardArrowRight } from 'react-icons/md';
 import ReactPaginate from 'react-paginate';
 import ContentItem from '../../components/ContentItem'
 
-
-const types = ["manga", "novel", "lightnovel", "oneshot", "doujin", "manhwa", "manhua"]
+const types = ["tv", "movie", "ova", "ona", "special", "music"]
 const sortArray = ["title", "chapters", "volumes", "score", "popularity", "members", "favorites"]
 const noGenres = [12, 26, 28, 44, 49, 53, 56, 65, 42]
 
-const Genres = ({ genres, manga, pagination }) => {
+const Genres = ({ genres, anime, pagination }) => {
   const router = useRouter()
-
   const [checkedState, setCheckedState] = React.useState<any[] | []>(new Array(genres.length).fill(false));
-  const [selectedGenres, setSelectedGenres] = React.useState<string>(String(router.query.genres) ?? '')
-  const [selectedSort, setSelectedSort] = React.useState<string>('')
-  const [selectedSortType, setSelectedSortType] = React.useState<string>('')
-  const [letter, setLetter] = React.useState('')
-  const [selecyedType, setSelectedType] = React.useState("")
-  const [page, setPage] = React.useState(0)
-  const [showSort, setShowSort] = React.useState(false)
   const [showGenres, setShowGenres] = React.useState(false)
-
+  const [showSort, setShowSort] = React.useState(false)
+  const [selectedSort, setSelectedSort] = React.useState<string>(String(router.query.order_by) ?? '')
+  const [selectedGenres, setSelectedGenres] = React.useState<string>(String(router.query.genres) ?? '')
+  const [letter, setLetter] = React.useState('')
+  const [selecyedType, setSelectedType] = React.useState(String(router.query.type) ?? "")
+  const [selectedSortType, setSelectedSortType] = React.useState<string>(String(router.query.sort) ?? '')
+  const [page, setPage] = React.useState(0)
   React.useEffect(() => {
     if (
       (selectedGenres?.length || selecyedType?.length || selectedSort?.length || selectedSortType?.length || letter?.length) && (page > 0)
       || (!(router.query.genres?.length || router.query.type?.length || router.query.order_by?.length || router.query.sort?.length || router.query.letter?.length) && (page > 0))
     ) {
       router.push({
-        pathname: '/manga/genres',
+        pathname: '/anime/genres',
         query: {
           genres: selectedGenres,
           type: selecyedType,
@@ -45,7 +42,7 @@ const Genres = ({ genres, manga, pagination }) => {
     }
     if (router.query.genres?.length || router.query.type?.length || router.query.order_by?.length || router.query.sort?.length || router.query.letter?.length) {
       router.push({
-        pathname: '/manga/genres',
+        pathname: '/anime/genres',
         query: {
           genres: router.query.genres,
           type: router.query.type,
@@ -58,34 +55,8 @@ const Genres = ({ genres, manga, pagination }) => {
     }
   }, [page])
 
-  const handleOnChange = (position: any) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item
-    );
-    setCheckedState(updatedCheckedState)
-    let res: any | any[] = [];
-    for (let i = 0; i < updatedCheckedState.length; i++) {
-      res.push({ ...genres[i], checked: updatedCheckedState[i] })
-    }
-    setSelectedGenres(res.filter((genre) => genre.checked === true).map((genre) => genre.mal_id).join(','))
-  }
-
   const redirectToType = (type) => {
     router.push(`/${type}`)
-  }
-
-  const getResult = () => {
-    router.push({
-      pathname: '/manga/genres',
-      query: {
-        genres: selectedGenres,
-        type: selecyedType,
-        order_by: selectedSort,
-        sort: selectedSortType,
-        letter,
-        page: 1
-      }
-    })
   }
 
   const onOptionChange = (type) => {
@@ -101,8 +72,34 @@ const Genres = ({ genres, manga, pagination }) => {
     setPage(event.selected + 1)
   }
   const redirectToItem = (id) => {
-    router.push(`/manga/${id}`)
+    router.push(`/anime/${id}`)
   }
+  const handleOnChange = (position: any) => {
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item
+    );
+    setCheckedState(updatedCheckedState)
+    let res: any | any[] = [];
+    for (let i = 0; i < updatedCheckedState.length; i++) {
+      res.push({ ...genres[i], checked: updatedCheckedState[i] })
+    }
+    setSelectedGenres(res.filter((genre) => genre.checked === true || genre.mal_id == router.query.genres).map((genre) => genre.mal_id).join(','))
+  }
+
+  const getResult = () => {
+    router.push({
+      pathname: '/anime/genres',
+      query: {
+        genres: selectedGenres,
+        type: selecyedType,
+        order_by: selectedSort,
+        sort: selectedSortType,
+        letter: letter,
+        page: 1
+      }
+    })
+  }
+
   const reset = () => {
     setSelectedType('')
     setSelectedSort('')
@@ -111,9 +108,7 @@ const Genres = ({ genres, manga, pagination }) => {
     setSelectedGenres('')
     setLetter('')
     setPage(0)
-    router.push({
-      pathname: '/manga/genres'
-    })
+    router.push({ pathname: '/anime/genres' })
   }
 
   return (<>
@@ -158,11 +153,16 @@ const Genres = ({ genres, manga, pagination }) => {
               }
             </div>
           </div>
-          <input className={styles.leftInput} type="text" placeholder='Search by title...' value={letter} onChange={(e) => setLetter(e.target.value)} />
+          <input
+            className={styles.leftInput}
+            type="text"
+            placeholder='Search by title...'
+            value={letter}
+            onChange={(e) => setLetter(e.target.value)} />
           <div className={styles.containManga}>
             {
-              manga
-                ? manga.map((mangaItem) => <ContentItem styles={styles} contentItem={mangaItem} redirectToItem={redirectToItem} />)
+              anime
+                ? anime.map((animeItem) => <ContentItem styles={styles} contentItem={animeItem} redirectToItem={redirectToItem} />)
                 : null
             }
           </div>
@@ -196,7 +196,7 @@ const Genres = ({ genres, manga, pagination }) => {
                         <input
                           className={styles.genreCheckbox}
                           type="checkbox"
-                          checked={checkedState[index]}
+                          checked={[router.query.genres].includes(`${genre.mal_id}`) || checkedState[index]}
                           onChange={() => handleOnChange(index)}
                         />
                         <div>{genre.name}</div>
@@ -225,7 +225,9 @@ const Genres = ({ genres, manga, pagination }) => {
         </div>
       </div>
     </div>
+
   </>)
+
 }
 
 export default Genres
@@ -234,19 +236,21 @@ export default Genres
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   let res;
-  const { data } = await axios.get(`https://api.jikan.moe/v4/genres/manga`)
-  const page = query.page ?? 1
-  if (query.genres?.length || query.type?.length || query.order_by?.length || query.sort?.length || query.letter?.length) {
-    res = await axios.get(`https://api.jikan.moe/v4/manga?type=${query.type ?? ''}&genres=${query.genres ?? ''}&order_by=${query.order_by ?? ''}&sort=${query.sort ?? ''}&letter=${query.letter ?? ''}&page=${page}&genres_exclude=12,26,28,44,49,53,56`)
-  } else {
-    res = await axios.get(`https://api.jikan.moe/v4/manga?page=${page}&genres_exclude=12,26,28,44,49,53,56`)
-  }
+  const { data } = await axios.get(`https://api.jikan.moe/v4/genres/anime`)
+  let page = query.page ?? 1
 
+  if (query.genres?.length || query.type?.length || query.order_by?.length || query.sort?.length || query.letter?.length) {
+    res = await axios.get(`https://api.jikan.moe/v4/anime?type=${query.type ?? ''}&genres=${query.genres ?? ''}&order_by=${query.order_by ?? ''}&sort=${query.sort ?? ''}&letter=${query.letter ?? ''}&page=${page}&genres_exclude=12,26,28,44,49,53,56`)
+  } else {
+    res = await axios.get(`https://api.jikan.moe/v4/anime?page=${page}&genres_exclude=12,26,28,44,49,53,56`)
+  }
+  // console.log(!!query.genres?.length)
+  // &sort=desc
   return {
     props: {
-      genres: data.data,
-      manga: res.data.data,
-      pagination: res.data.pagination
+      genres: data.data || null,
+      anime: res?.data?.data || null,
+      pagination: res?.data?.pagination || null
     }
   }
 }
