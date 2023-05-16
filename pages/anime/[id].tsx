@@ -1,57 +1,40 @@
 import * as React from 'react';
-import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next/types';
-import axios, { AxiosResponse } from 'axios';
+import { useRouter } from 'next/router'
 import styles from '../../styles/itemPage.module.css'
-import Slider from "react-slick";
-import settings from '../../components/settingSlider'
 import '../../types.d.ts'
+import axios from 'axios';
+import { GetServerSideProps } from 'next/types';
+import Slider from 'react-slick';
+import settings from '../../components/settingSlider';
+import Link from 'next/link';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Link from 'next/link';
-import Menu from '../../components/Menu'
-
-const type = ['Recommendations', 'Pictures', 'Characters']
+import Menu from '../../components/Menu';
 
 
-interface iProps {
-  manga: any | any[],
-  statistic: any | any[] | null,
-  recommendations: any | any[]
-}
-
-const MangaPage: React.FC<iProps> = ({ manga, statistic, recommendations }) => {
+const AnimeItemPage = ({ anime, recommendations, images }) => {
   const router = useRouter()
   const { id } = router.query
-  const [images, setImages] = React.useState<any[] | null>(null)
   const [characters, setCharacters] = React.useState<any[] | null>(null)
   const [selectedType, setSelectedType] = React.useState<string>('Recommendations')
-
-  const getImages = async () => {
-    const { data } = await axios.get(`https://api.jikan.moe/v4/manga/${id}/pictures`)
-    if (data) setImages(data.data)
-  }
-  const getCharacters = async () => {
-    const { data } = await axios.get(`https://api.jikan.moe/v4/manga/${id}/characters`)
-    if (data) setCharacters(data.data.slice(0, 20))
-  }
 
   const changeType = (type) => {
     setSelectedType(type)
     getCharacters()
   }
 
-  React.useEffect(() => {
-    setCharacters(null)
-    setImages(null)
-    setTimeout(() => {
-      getImages()
-    }, 1500);
-  }, [id])
+  const getCharacters = async () => {
+    const { data } = await axios.get(`https://api.jikan.moe/v4/anime/${id}/characters`)
+    if (data) setCharacters(data.data.slice(0, 20))
+  }
 
   const redirectToType = (type) => {
     router.push(`/${type}`)
   }
+
+  React.useEffect(() => {
+    setCharacters(null)
+  }, [])
 
   return (<>
     <Menu redirectToType={redirectToType} />
@@ -64,22 +47,21 @@ const MangaPage: React.FC<iProps> = ({ manga, statistic, recommendations }) => {
       <div className={styles.containTitle}>
         <div className={styles.up}>
           <div className={styles.containImg}>
-            <img className={styles.img} src={manga.images.jpg.image_url} alt="" width={200} />
+            <img className={styles.img} src={anime.images.jpg.image_url} alt="" width={200} />
           </div>
           <div className={styles.infoTitle}>
-            <div className={styles.title}>{manga.title}</div>
-            <div className={styles.genres}>{manga.genres.map((genre) => <div className={styles.genre}>{genre.name}</div>)}</div>
-            <div className={styles.synopsis}>{manga.synopsis}</div>
+            <div className={styles.title}>{anime.title}</div>
+            <div className={styles.genres}>{anime.genres.map((genre) => <div className={styles.genre}>{genre.name}</div>)}</div>
+            <div className={styles.synopsis}>{anime.synopsis}</div>
           </div>
         </div>
         <div className={styles.down}>
           <div className={styles.left}>
             <div className={styles.card}>
-              <div className={styles.cardItem}>Type: {manga.type}</div>
-              <div className={styles.cardItem}>{manga.status}</div>
-              <div className={styles.cardItem}>Favorites: {manga.favorites}</div>
-              <div className={styles.cardItem}>Chapters: {manga.chapters ?? 'No info'}</div>
-              {statistic && <div className={styles.cardItem}>Read: {statistic.total}</div>}
+              <div className={styles.cardItem}>Type: {anime.type}</div>
+              <div className={styles.cardItem}>{anime.status}</div>
+              <div className={styles.cardItem}>Favorites: {anime.favorites}</div>
+              <div className={styles.cardItem}>Episodes: {anime.episodes ?? 'No info'}</div>
             </div>
           </div>
           <div className={styles.right}>
@@ -93,11 +75,11 @@ const MangaPage: React.FC<iProps> = ({ manga, statistic, recommendations }) => {
             {recommendations && selectedType === "Recommendations"
               ? <Slider {...settings} className={styles.slider}>
                 {recommendations.map((mangaItem) => (
-                  <Link className={styles.cardItemRec} href={`/manga/${mangaItem.entry.mal_id}`}>
+                  <Link className={styles.cardItemRec} href={`/anime/${mangaItem.entry.mal_id}`}>
                     <img className={styles.sliderImg} src={mangaItem.entry.images.jpg.image_url} alt="" />
-                    {/* <div> */}
-                    <div className={styles.cardTitleRec}>{mangaItem.entry.title}</div>
-                    {/* </div> */}
+                    <div>
+                      <div className={styles.cardTitleRec}>{mangaItem.entry.title}</div>
+                    </div>
                   </Link>
                 ))}
               </Slider>
@@ -130,23 +112,23 @@ const MangaPage: React.FC<iProps> = ({ manga, statistic, recommendations }) => {
         </div>
       </div>
     </div>
-
   </>)
 }
 
-export default MangaPage
+export default AnimeItemPage
+
+
 
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const manga = await axios.get(`https://api.jikan.moe/v4/manga/${query.id}`)
-  const statistic = await axios.get(`https://api.jikan.moe/v4/manga/${query.id}/statistics`)
-  const recommendationsInfo = await axios.get(`https://api.jikan.moe/v4/manga/${query.id}/recommendations`)
-  const recommendations = recommendationsInfo ?? ''
+  const anime = await axios.get(`https://api.jikan.moe/v4/anime/${query.id}`)
+  const images = await axios.get(`https://api.jikan.moe/v4/anime/${query.id}/pictures`)
+  const recommendations = await axios.get(`https://api.jikan.moe/v4/anime/${query.id}/recommendations`)
   return {
     props: {
-      manga: manga.data.data,
-      recommendations: recommendations.data.data.slice(0, 20) || null,
-      statistic: statistic.data.data || null,
+      anime: anime.data.data,
+      images: images.data.data || null,
+      recommendations: recommendations.data.data.slice(0, 20)
     }
   }
 
