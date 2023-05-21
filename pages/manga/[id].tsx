@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next/types';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import styles from '../../styles/itemPage.module.css'
-import Slider from "react-slick";
-import settings from '../../components/settingSlider'
 import '../../types.d.ts'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Link from 'next/link';
 import Menu from '../../components/Menu'
+import ItemStatistic from '../../components/ItemStatistic';
+import ItemUpContent from '../../components/ItemUpContent';
+import SelectedTypeBlock from '../../components/SelectedTypeBlock'
+import SlidersBlock from '../../components/SlidersBlock';
+import Layout from '../../components/Layout';
 
 const type = ['Recommendations', 'Pictures', 'Characters']
-
 
 interface iProps {
   manga: any | any[],
@@ -36,101 +37,60 @@ const MangaPage: React.FC<iProps> = ({ manga, statistic, recommendations }) => {
     if (data) setCharacters(data.data.slice(0, 20))
   }
 
-  const changeType = (type) => {
-    setSelectedType(type)
-    getCharacters()
-  }
-
   React.useEffect(() => {
     setCharacters(null)
     setImages(null)
     setTimeout(() => {
       getImages()
+      getCharacters()
     }, 1500);
   }, [id])
 
-  const redirectToType = (type) => {
-    router.push(`/${type}`)
+  const redirectToGenres = (genreId) => {
+    router.push({
+      pathname: '/manga/genres',
+      query: {
+        genres: genreId,
+        type: '',
+        order_by: '',
+        sort: '',
+        letter: '',
+        page: 0,
+      }
+    })
   }
 
   return (<>
-    <Menu redirectToType={redirectToType} />
-    <div className={styles.bodyPage}>
-      {images
-        ? <><img className={styles.backImage} src={images[0].jpg.large_image_url} />
-          <div className={styles.wrap} /> </>
-        : null}
+    <Layout title={manga.title} >
+      <div className={styles.bodyPage}>
+        {images
+          ? <><img className={styles.backImage} src={images[0].jpg.large_image_url} />
+            <div className={styles.wrap} /> </>
+          : null}
 
-      <div className={styles.containTitle}>
-        <div className={styles.up}>
-          <div className={styles.containImg}>
-            <img className={styles.img} src={manga.images.jpg.image_url} alt="" width={200} />
+        <div className={styles.containTitle}>
+          <div className={styles.up}>
+            <ItemUpContent styles={styles} content={manga} redirectToGenres={redirectToGenres} />
           </div>
-          <div className={styles.infoTitle}>
-            <div className={styles.title}>{manga.title}</div>
-            <div className={styles.genres}>{manga.genres.map((genre) => <div className={styles.genre}>{genre.name}</div>)}</div>
-            <div className={styles.synopsis}>{manga.synopsis}</div>
-          </div>
-        </div>
-        <div className={styles.down}>
-          <div className={styles.left}>
-            <div className={styles.card}>
-              <div className={styles.cardItem}>Type: {manga.type}</div>
-              <div className={styles.cardItem}>{manga.status}</div>
-              <div className={styles.cardItem}>Favorites: {manga.favorites}</div>
-              <div className={styles.cardItem}>Chapters: {manga.chapters ?? 'No info'}</div>
-              {statistic && <div className={styles.cardItem}>Read: {statistic.total}</div>}
+          <div className={styles.down}>
+            <div className={styles.left}>
+              <ItemStatistic styles={styles} content={manga} contentType='manga' statistic={statistic} />
             </div>
-          </div>
-          <div className={styles.right}>
-            <div className={styles.type}>
-              <div className={'Recommendations' === selectedType ? styles.typeItemActive : styles.typeItem} onClick={() => setSelectedType('Recommendations')}>Recommendations</div>
-              <div className={'Pictures' === selectedType ? styles.typeItemActive : styles.typeItem} onClick={() => setSelectedType('Pictures')}>Pictures</div>
-              <div className={'Characters' === selectedType ? styles.typeItemActive : styles.typeItem} onClick={() => changeType('Characters')}>Characters</div>
-
-
+            <div className={styles.right}>
+              <SelectedTypeBlock styles={styles} selectedType={selectedType} setSelectedType={setSelectedType} type={type} />
+              <SlidersBlock
+                pathName={'manga'}
+                styles={styles}
+                selectedType={selectedType}
+                recommendations={recommendations}
+                characters={characters}
+                images={images}
+              />
             </div>
-            {recommendations && selectedType === "Recommendations"
-              ? <Slider {...settings} className={styles.slider}>
-                {recommendations.map((mangaItem) => (
-                  <Link className={styles.cardItemRec} href={`/manga/${mangaItem.entry.mal_id}`}>
-                    <img className={styles.sliderImg} src={mangaItem.entry.images.jpg.image_url} alt="" />
-                    {/* <div> */}
-                    <div className={styles.cardTitleRec}>{mangaItem.entry.title}</div>
-                    {/* </div> */}
-                  </Link>
-                ))}
-              </Slider>
-              : null
-            }
-            {
-              images && selectedType === 'Pictures'
-                ? <Slider {...settings} className={styles.slider}>
-                  {images.map((img) => (
-                    <div>
-                      <img className={styles.sliderImg} src={img.jpg.image_url} alt="" />
-                    </div>
-                  ))}
-                </Slider>
-                : null
-            }
-            {
-              characters && selectedType === 'Characters'
-                ? <Slider {...settings} className={styles.slider}>
-                  {characters.map((character) => (
-                    <div>
-                      <img className={styles.sliderImg} src={character.character.images.jpg.image_url} alt="" />
-                      <div className={styles.cardTitleRec}>{character.character.name}</div>
-                    </div>
-                  ))}
-                </Slider>
-                : null
-            }
           </div>
         </div>
       </div>
-    </div>
-
+    </Layout>
   </>)
 }
 
@@ -140,12 +100,18 @@ export default MangaPage
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const manga = await axios.get(`https://api.jikan.moe/v4/manga/${query.id}`)
   const statistic = await axios.get(`https://api.jikan.moe/v4/manga/${query.id}/statistics`)
+  let recommendations;
   const recommendationsInfo = await axios.get(`https://api.jikan.moe/v4/manga/${query.id}/recommendations`)
-  const recommendations = recommendationsInfo ?? ''
+  if ([recommendationsInfo.data.data].length > 20) {
+    recommendations = recommendationsInfo.data.data.slice(0, 20)
+  } else {
+    recommendations = recommendationsInfo.data.data
+  }
+
   return {
     props: {
       manga: manga.data.data,
-      recommendations: recommendations.data.data.slice(0, 20) || null,
+      recommendations: recommendations || null,
       statistic: statistic.data.data || null,
     }
   }

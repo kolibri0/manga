@@ -10,6 +10,8 @@ import { BiSearchAlt2 } from 'react-icons/bi'
 import ReactPaginate from 'react-paginate';
 import debounce from 'lodash.debounce'
 import ContentItem from '../../components/ContentItem';
+import Layout from '../../components/Layout';
+
 
 const TypeManga = ['default', 'top']
 
@@ -40,9 +42,6 @@ const Home = ({ manga, pagination }) => {
     }
   }, [page, serchMangaText])
 
-  const redirectToType = (type) => {
-    router.push(`/${type}`)
-  }
   const redirectToGenres = () => {
     router.push(`/manga/genres`)
   }
@@ -66,11 +65,10 @@ const Home = ({ manga, pagination }) => {
     }, 1000), []
   )
 
-
   const handlePageClick = (event: any) => {
     setPage(event.selected + 1)
   }
-  // console.log(router.replace)
+
   const serchManga = () => {
     router.push({
       pathname: '/manga',
@@ -103,57 +101,55 @@ const Home = ({ manga, pagination }) => {
     }
   }
 
-
-
   const getRandomManga = async () => {
     const { data } = await axios.get(`https://api.jikan.moe/v4/random/manga`)
     router.push(`/manga/${data.data.mal_id}`)
   }
 
-
   const checkMangaTypeUrl = () => router.query.type ? true : false
-  // console.log(page)
-  return (<div className={styles.container}>
-    <Menu redirectToType={redirectToType} />
-    <div className={styles.containManga}>
-
-      <div className={styles.mangaNav}>
-        <div className={styles.hr} />
-        <div className={styles.navItems}>
-          <div className={styles.containSearch}>
-            <input className={styles.searchInput}
-              type="text" placeholder='Search...'
-              value={value} onKeyDown={handleKeyDown}
-              onChange={(e) => onChangeInput(e)}
-              disabled={checkMangaTypeUrl()}
-            />
-            <button className={styles.searchBtn} onClick={() => serchManga()} disabled={checkMangaTypeUrl()}><BiSearchAlt2 className={styles.searchIcon} /></button>
+  return (
+    <Layout title='Manga'>
+      <div className={styles.container}>
+        <div className={styles.containManga}>
+          <div className={styles.mangaNav}>
+            <div className={styles.hr} />
+            <div className={styles.navItems}>
+              <div className={styles.containSearch}>
+                <input className={styles.searchInput}
+                  type="text" placeholder='Search...'
+                  value={value} onKeyDown={handleKeyDown}
+                  onChange={(e) => onChangeInput(e)}
+                  disabled={checkMangaTypeUrl()}
+                />
+                <button className={styles.searchBtn} onClick={() => serchManga()} disabled={checkMangaTypeUrl()}><BiSearchAlt2 className={styles.searchIcon} /></button>
+              </div>
+              <div className={styles.navItem} onClick={() => redirectToGenres()}>Genres</div>
+              <div className={styles.navItem} onClick={() => changeMangaType()}>{checkMangaTypeUrl() ? 'Manga' : 'Top manga'}</div>
+              <div className={styles.navItem} onClick={() => getRandomManga()}>Random manga</div>
+            </div>
           </div>
-          <div className={styles.navItem} onClick={() => redirectToGenres()}>Genres</div>
-          <div className={styles.navItem} onClick={() => changeMangaType()}>{checkMangaTypeUrl() ? 'Manga' : 'Top manga'}</div>
-          <div className={styles.navItem} onClick={() => getRandomManga()}>Random manga</div>
+          <div className={styles.containGrid}>
+            {
+              manga
+                ? manga.map((mangaItem) => <ContentItem styles={styles} contentItem={mangaItem} redirectToItem={redirectToItem} />)
+                : null
+            }
+          </div>
         </div>
-      </div>
-      <div className={styles.containGrid}>
-        {
-          manga
-            ? manga.map((mangaItem) => <ContentItem styles={styles} contentItem={mangaItem} redirectToItem={redirectToItem} />)
-            : null
+        {pagination && pagination.last_visible_page &&
+          <ReactPaginate
+            className={styles.pagination}
+            breakLabel="..."
+            nextLabel=">"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={1}
+            pageCount={pagination.last_visible_page}
+            previousLabel="<"
+          />
         }
       </div>
-    </div>
-    {pagination && pagination.last_visible_page &&
-      <ReactPaginate
-        className={styles.pagination}
-        breakLabel="..."
-        nextLabel=">"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={1}
-        pageCount={pagination.last_visible_page}
-        previousLabel="<"
-      />
-    }
-  </div>)
+    </Layout>
+  )
 }
 
 export default Home

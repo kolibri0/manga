@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Menu from '../../components/Menu';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next/types';
 import { BiSearchAlt2 } from 'react-icons/bi'
@@ -8,6 +7,7 @@ import styles from '../../styles/CardItem.module.css'
 import ContentItem from '../../components/ContentItem';
 import ReactPaginate from 'react-paginate';
 import debounce from 'lodash.debounce'
+import Layout from '../../components/Layout';
 
 const TypeAnime = ['default', 'top']
 
@@ -38,9 +38,6 @@ const AnimeHome = ({ anime, pagination }) => {
     }
   }, [page, serchAnimeText])
 
-  const redirectToType = (type) => {
-    router.push(`/${type}`)
-  }
   const redirectToItem = (id: string) => {
     router.push(`/anime/${id}`)
   }
@@ -116,54 +113,55 @@ const AnimeHome = ({ anime, pagination }) => {
     })
   }
 
-
-
   const checkAnimeTypeUrl = () => router.query.type ? true : false
-  // console.log(anime)
-  return (<div className={styles.container}>
-    <Menu redirectToType={redirectToType} />
-    <div className={styles.containManga}>
-      <div className={styles.mangaNav}>
-        <div className={styles.hr} />
-        <div className={styles.navItems}>
-          <div className={styles.containSearch}>
-            <input className={styles.searchInput}
-              type="text" placeholder='Search...'
-              value={value} onKeyDown={handleKeyDown}
-              onChange={(e) => onChangeInput(e)}
-              disabled={checkAnimeTypeUrl()}
-            />
-            <button className={styles.searchBtn} onClick={() => serchAnime()} disabled={checkAnimeTypeUrl()}>
-              <BiSearchAlt2 className={styles.searchIcon} />
-            </button>
+
+  return (
+    <Layout title='Anime'>
+      <div className={styles.container}>
+        <div className={styles.containManga}>
+          <div className={styles.mangaNav}>
+            <div className={styles.hr} />
+            <div className={styles.navItems}>
+              <div className={styles.containSearch}>
+                <input className={styles.searchInput}
+                  type="text" placeholder='Search...'
+                  value={value} onKeyDown={handleKeyDown}
+                  onChange={(e) => onChangeInput(e)}
+                  disabled={checkAnimeTypeUrl()}
+                />
+                <button className={styles.searchBtn} onClick={() => serchAnime()} disabled={checkAnimeTypeUrl()}>
+                  <BiSearchAlt2 className={styles.searchIcon} />
+                </button>
+              </div>
+              <div className={styles.navItem} onClick={() => redirectToGenres()}>Genres</div>
+              <div className={styles.navItem} onClick={() => changeAnimeType()}>
+                {checkAnimeTypeUrl() ? 'Anime' : 'Top anime'}
+              </div>
+              <div className={styles.navItem} onClick={() => getRandomAnime()}>Random anime</div>
+            </div>
           </div>
-          <div className={styles.navItem} onClick={() => redirectToGenres()}>Genres</div>
-          <div className={styles.navItem} onClick={() => changeAnimeType()}>
-            {checkAnimeTypeUrl() ? 'Anime' : 'Top anime'}
+          <div className={styles.containGrid}>
+            {
+              anime
+                ? anime.map((animeItem) => <ContentItem styles={styles} contentItem={animeItem} redirectToItem={redirectToItem} />)
+                : null
+            }
           </div>
-          <div className={styles.navItem} onClick={() => getRandomAnime()}>Random anime</div>
         </div>
-      </div>
-      <div className={styles.containGrid}>
-        {
-          anime
-            ? anime.map((animeItem) => <ContentItem styles={styles} contentItem={animeItem} redirectToItem={redirectToItem} />)
-            : null
+        {pagination && pagination.last_visible_page &&
+          <ReactPaginate
+            className={styles.pagination}
+            breakLabel="..."
+            nextLabel=">"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={1}
+            pageCount={pagination.last_visible_page}
+            previousLabel="<"
+          />
         }
       </div>
-    </div>
-    {pagination && pagination.last_visible_page &&
-      <ReactPaginate
-        className={styles.pagination}
-        breakLabel="..."
-        nextLabel=">"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={1}
-        pageCount={pagination.last_visible_page}
-        previousLabel="<"
-      />
-    }
-  </div>)
+    </Layout>
+  )
 }
 
 export default AnimeHome
@@ -181,7 +179,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     res = await axios.get(`https://api.jikan.moe/v4/anime?page=${page}`)
   }
 
-  // https://api.jikan.moe/v4/top/anime
   return {
     props: {
       anime: res.data.data || null,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Menu from '../components/Menu';
+import Layout from '../components/Layout';
 import { useRouter } from 'next/router';
 
 const Homa = () => {
@@ -9,7 +9,11 @@ const Homa = () => {
     router.push(`/${type}`)
   }
   return (<>
-    <Menu redirectToType={redirectToType} />
+    <Layout title='Home'>
+      <div>
+        as
+      </div>
+    </Layout>
   </>)
 }
 

@@ -56,3 +56,14 @@
   color: rgb(255, 179, 0);
   cursor: pointer;
 }
+
+@media (max-width: 320px){
+  .left{
+    width: 100px;
+    padding-left: 10px;
+  }
+  .right{
+    width: 100px;
+    padding-left: 30px;
+  }
+}

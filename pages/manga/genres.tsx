@@ -7,6 +7,7 @@ import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
 import styles from '../../styles/genres.module.css'
 import ReactPaginate from 'react-paginate';
 import ContentItem from '../../components/ContentItem'
+import Layout from '../../components/Layout';
 
 
 const types = ["manga", "novel", "lightnovel", "oneshot", "doujin", "manhwa", "manhua"]
@@ -70,10 +71,6 @@ const Genres = ({ genres, manga, pagination }) => {
     setSelectedGenres(res.filter((genre) => genre.checked === true).map((genre) => genre.mal_id).join(','))
   }
 
-  const redirectToType = (type) => {
-    router.push(`/${type}`)
-  }
-
   const getResult = () => {
     router.push({
       pathname: '/manga/genres',
@@ -117,114 +114,115 @@ const Genres = ({ genres, manga, pagination }) => {
   }
 
   return (<>
-    <Menu redirectToType={redirectToType} />
-    <div className={styles.container}>
-      <div className={styles.containGenres}>
-        <div className={styles.left}>
-          <div className={styles.leftHead}>
-            <div className={styles.catalog}>Catalog</div>
-            <div className={styles.sortBlock}>
-              <div className={styles.containSortTitle} onClick={() => setShowSort(!showSort)}>
-                <div>Sort by</div>
-                {showSort
-                  ? <MdKeyboardArrowDown className={styles.sortArrow} />
-                  : <MdKeyboardArrowRight className={styles.sortArrow} />
+    <Layout title='Catalog'>
+      <div className={styles.container}>
+        <div className={styles.containGenres}>
+          <div className={styles.left}>
+            <div className={styles.leftHead}>
+              <div className={styles.catalog}>Catalog</div>
+              <div className={styles.sortBlock}>
+                <div className={styles.containSortTitle} onClick={() => setShowSort(!showSort)}>
+                  <div>Sort by</div>
+                  {showSort
+                    ? <MdKeyboardArrowDown className={styles.sortArrow} />
+                    : <MdKeyboardArrowRight className={styles.sortArrow} />
+                  }
+                </div>
+                {showSort &&
+                  <div className={styles.containSort}>
+                    {
+                      sortArray.map((sortItem) => (
+                        <div className={styles.selectSort} onClick={() => onSortChange(sortItem)}>
+                          <input className={styles.sortRadioBtn} type="radio" name='sort' id={sortItem} value={sortItem} />
+                          <label htmlFor={sortItem}>{sortItem[0].toUpperCase() + sortItem.slice(1)}</label>
+                        </div>
+                      ))
+                    }
+                    <div className={styles.hr} />
+                    {
+                      <div className={styles.selectedSortTypeBlock}>
+                        <div className={styles.selectSort} onClick={() => onSortTypeChange('asc')}>
+                          <input className={styles.sortRadioBtn} type="radio" name='sortType' id={'asc'} value={'asc'} />
+                          <label htmlFor={'asc'}>Asc</label>
+                        </div>
+                        <div className={styles.selectSort} onClick={() => onSortTypeChange('desc')}>
+                          <input className={styles.sortRadioBtn} type="radio" name='sortType' id={'desc'} value={'desc'} />
+                          <label htmlFor={'desc'}>Desc</label>
+                        </div>
+                      </div>
+                    }
+                  </div>
                 }
               </div>
-              {showSort &&
-                <div className={styles.containSort}>
-                  {
-                    sortArray.map((sortItem) => (
-                      <div className={styles.selectSort} onClick={() => onSortChange(sortItem)}>
-                        <input className={styles.sortRadioBtn} type="radio" name='sort' id={sortItem} value={sortItem} />
-                        <label htmlFor={sortItem}>{sortItem[0].toUpperCase() + sortItem.slice(1)}</label>
-                      </div>
-                    ))
-                  }
-                  <div className={styles.hr} />
-                  {
-                    <div className={styles.selectedSortTypeBlock}>
-                      <div className={styles.selectSort} onClick={() => onSortTypeChange('asc')}>
-                        <input className={styles.sortRadioBtn} type="radio" name='sortType' id={'asc'} value={'asc'} />
-                        <label htmlFor={'asc'}>Asc</label>
-                      </div>
-                      <div className={styles.selectSort} onClick={() => onSortTypeChange('desc')}>
-                        <input className={styles.sortRadioBtn} type="radio" name='sortType' id={'desc'} value={'desc'} />
-                        <label htmlFor={'desc'}>Desc</label>
-                      </div>
-                    </div>
-                  }
-                </div>
+            </div>
+            <input className={styles.leftInput} type="text" placeholder='Search by title...' value={letter} onChange={(e) => setLetter(e.target.value)} />
+            <div className={styles.containManga}>
+              {
+                manga
+                  ? manga.map((mangaItem) => <ContentItem styles={styles} contentItem={mangaItem} redirectToItem={redirectToItem} />)
+                  : null
               }
             </div>
-          </div>
-          <input className={styles.leftInput} type="text" placeholder='Search by title...' value={letter} onChange={(e) => setLetter(e.target.value)} />
-          <div className={styles.containManga}>
-            {
-              manga
-                ? manga.map((mangaItem) => <ContentItem styles={styles} contentItem={mangaItem} redirectToItem={redirectToItem} />)
-                : null
+            {pagination && pagination.last_visible_page &&
+              <ReactPaginate
+                className={styles.pagination}
+                breakLabel="..."
+                nextLabel=">"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={1}
+                pageCount={pagination.last_visible_page}
+                previousLabel="<"
+              />
             }
           </div>
-          {pagination && pagination.last_visible_page &&
-            <ReactPaginate
-              className={styles.pagination}
-              breakLabel="..."
-              nextLabel=">"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={1}
-              pageCount={pagination.last_visible_page}
-              previousLabel="<"
-            />
-          }
-        </div>
-        <div className={styles.right}>
-          <div className={showGenres ? styles.rightGenresBlockSelected : styles.rightGenresBlock}>
-            <div className={styles.genres} onClick={() => setShowGenres(!showGenres)}>
-              <div className={styles.genresTitle}>Genres</div>
-              {showGenres
-                ? <MdKeyboardArrowDown className={styles.genresArrow} />
-                : <MdKeyboardArrowRight className={styles.genresArrow} />
-              }
-            </div>
-            {showGenres &&
-              <div className={styles.genresBlock}>
-                {
-                  genres.map((genre, index) => (
-                    !noGenres.includes(genre.mal_id) ?
-                      <div className={styles.genreBlock}>
-                        <input
-                          className={styles.genreCheckbox}
-                          type="checkbox"
-                          checked={checkedState[index]}
-                          onChange={() => handleOnChange(index)}
-                        />
-                        <div>{genre.name}</div>
-                      </div>
-                      : null
-                  ))}
+          <div className={styles.right}>
+            <div className={showGenres ? styles.rightGenresBlockSelected : styles.rightGenresBlock}>
+              <div className={styles.genres} onClick={() => setShowGenres(!showGenres)}>
+                <div className={styles.genresTitle}>Genres</div>
+                {showGenres
+                  ? <MdKeyboardArrowDown className={styles.genresArrow} />
+                  : <MdKeyboardArrowRight className={styles.genresArrow} />
+                }
               </div>
-            }
-            <div className={styles.btnBlock}>
-              <button className={styles.reset} onClick={() => reset()}>Reset</button>
-              <button className={styles.show} onClick={() => getResult()}>Show</button>
-            </div>
-            <div className={styles.radioGroup}>
-              <div className={styles.radioItem} onClick={() => onOptionChange('')}>
-                <input className={styles.radio} type="radio" name="type" id={'all'} value={''} />
-                <label htmlFor={'all'}>All</label>
-              </div>
-              {types.map((type) => (
-                <div className={styles.radioItem} onClick={() => onOptionChange(type)}>
-                  <input className={styles.radio} type="radio" name="type" id={type} value={type} />
-                  <label htmlFor={type}>{type[0].toUpperCase() + type.slice(1)}</label>
+              {showGenres &&
+                <div className={styles.genresBlock}>
+                  {
+                    genres.map((genre, index) => (
+                      !noGenres.includes(genre.mal_id) ?
+                        <div className={styles.genreBlock}>
+                          <input
+                            className={styles.genreCheckbox}
+                            type="checkbox"
+                            checked={checkedState[index]}
+                            onChange={() => handleOnChange(index)}
+                          />
+                          <div>{genre.name}</div>
+                        </div>
+                        : null
+                    ))}
                 </div>
-              ))}
+              }
+              <div className={styles.btnBlock}>
+                <button className={styles.reset} onClick={() => reset()}>Reset</button>
+                <button className={styles.show} onClick={() => getResult()}>Show</button>
+              </div>
+              <div className={styles.radioGroup}>
+                <div className={styles.radioItem} onClick={() => onOptionChange('')}>
+                  <input className={styles.radio} type="radio" name="type" id={'all'} value={''} />
+                  <label htmlFor={'all'}>All</label>
+                </div>
+                {types.map((type) => (
+                  <div className={styles.radioItem} onClick={() => onOptionChange(type)}>
+                    <input className={styles.radio} type="radio" name="type" id={type} value={type} />
+                    <label htmlFor={type}>{type[0].toUpperCase() + type.slice(1)}</label>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   </>)
 }
 

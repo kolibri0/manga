@@ -153,8 +153,7 @@
   border: 1px solid white;
   margin-left: 300px;
   margin-top: 40px;
-  max-width:fit-content;
-  /* width: 330px; */
+  max-width: fit-content;
   padding: 3px 32px;
   border-radius: 10px;
   justify-content: center;
@@ -172,4 +171,179 @@
   background-color: transparent;
   color: rgb(255, 179, 0);
   border-radius: 5px;
+}
+
+@media (max-width: 2560px) {
+  .containGrid{
+    grid-template-columns: repeat(7, 180px);
+    width: 1450px;
+    margin-left: 0;
+    padding-left: 0;
+  }
+}
+@media (max-width: 1440px) {
+  .containGrid{
+    grid-template-columns: repeat(5, 180px);
+    width: 1050px;
+    margin-left: 0;
+    padding-left: 0;
+  } 
+  .container{
+    width: 1300px;
+  }
+}
+@media (max-width: 1024px) {
+  .containGrid{
+    grid-template-columns: repeat(3, 180px);
+    width: 850px;
+  }
+  .container{
+    width: 1000px;
+  }
+}
+@media (max-width: 991px) {
+  .containGrid{
+    grid-template-columns: repeat(3, 160px);
+    width: 600px;
+    /* padding-left: 10px; */
+    /* justify-content: center; */
+  }
+  .container{
+    width: 600px;
+  }
+  .img{
+    width: 160px;
+  }
+}
+@media (max-width: 768px) {
+  .containGrid{
+    grid-template-columns: repeat(2, 160px);
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .container{
+    width: 400px;
+  }
+  .containSearch{
+    position: relative;
+    margin-bottom: 10px;
+    width: 190px;
+  }
+  .searchInput{
+    width: 180px;
+  }
+  .mangaNav{
+    width: 250px;
+  }
+  .pagination{
+    width: 300px;
+    max-width: 300px;
+    margin-left: 190px;
+    font-size: 13px;
+  }
+}
+@media (max-width: 480px){
+  .containGrid{
+    grid-template-columns: repeat(2, 160px);
+    margin-left: 0;
+    padding-left: 0;
+    width: 320px;
+    justify-content: start;
+    margin: 0 auto;
+  }
+  .hr{
+    display: none;
+  }
+  .mangaNav{
+    width: 180px;
+    /* padding: 25px 10px; */
+    position: relative;
+    margin-top: 10px;
+    border-radius: 5px;
+    width: 320px;
+    justify-content: center;
+    text-align: center;
+    height: 155px;
+    z-index: 12;
+    margin-bottom: 50px;
+  }
+  .containManga{
+    display: block;
+    margin: 0 auto;
+  }
+  .container{
+    width: 300px;
+    margin: 0 auto;
+  }
+  .containSearch{
+    position: relative;
+    margin-bottom: 10px;
+    width: 250px;
+    margin: 0 auto 10px;
+  }
+  .searchInput{
+    width: 250px;
+  }
+  .pagination{
+    width: 300px;
+    max-width: 300px;
+    font-size: 13px;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 320px){
+  .containGrid{
+    grid-template-columns: repeat(1, 160px);
+    margin-left: 0;
+    padding-left: 0;
+    width: 160px;
+    justify-content: start;
+    margin: 0 auto;
+  }
+  .hr{
+    display: none;
+  }
+  .containManga{
+    display: block;
+    margin: 0 auto;
+  }
+  .mangaNav{
+    width: 180px;
+    /* padding: 25px 10px; */
+    position: relative;
+    margin-top: 10px;
+    border-radius: 5px;
+    width: 295px;
+    justify-content: center;
+    text-align: center;
+    height: 155px;
+    z-index: 12;
+    margin-bottom: 50px;
+  }
+  .containManga{
+    display: block;
+    margin: 0 auto;
+  }
+  .container{
+    width: 295px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .containSearch{
+    position: relative;
+    margin-bottom: 10px;
+    width: 250px;
+    margin: 0 auto 10px;
+  }
+  .searchInput{
+    width: 250px;
+  }
+  .pagination{
+    width: 290px;
+    max-width: 280px;
+    font-size: 11px;
+    margin: 10px auto 20px;
+  }
 }

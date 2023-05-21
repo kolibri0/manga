@@ -4,7 +4,7 @@ import '../types.d.ts'
 import { ImHome } from 'react-icons/im'
 import { useRouter } from 'next/router';
 
-const types = ['manga', 'anime', 'films']
+const types = ['manga', 'anime']
 
 interface IProps {
   redirectToType: (type: string) => void
@@ -14,10 +14,8 @@ const Menu: React.FC<IProps> = ({ redirectToType }) => {
   const router = useRouter()
   const [selectedType, setSelectedType] = React.useState('')
   React.useEffect(() => {
-    // setSelectedType(router.pathname.slice(1))
     setSelectedType(router.pathname.split('/').slice(1)[0])
   }, [])
-  // console.log(selectedType)
   return (<>
     <div className={styles.container}>
       <div className={styles.containMenu}>
@@ -33,7 +31,6 @@ const Menu: React.FC<IProps> = ({ redirectToType }) => {
             {types.map((type) => (
               <div
                 className={selectedType === type ? styles.typeActive : styles.type}
-                // className={styles.type}
                 onClick={() => redirectToType(type)}
               >{type[0].toUpperCase() + type.slice(1)}
               </div>
