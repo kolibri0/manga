@@ -12,6 +12,7 @@ import ItemUpContent from '../../components/ItemUpContent';
 import SelectedTypeBlock from '../../components/SelectedTypeBlock'
 import SlidersBlock from '../../components/SlidersBlock';
 import Layout from '../../components/Layout';
+import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
 
 const type = ['Recommendations', 'Pictures', 'Characters']
 
@@ -27,6 +28,7 @@ const MangaPage: React.FC<iProps> = ({ manga, statistic, recommendations }) => {
   const [images, setImages] = React.useState<any[] | null>(null)
   const [characters, setCharacters] = React.useState<any[] | null>(null)
   const [selectedType, setSelectedType] = React.useState<string>('Recommendations')
+  const [savedManga, setSavedManga] = React.useState<null | any[]>(null)
 
   const getImages = async () => {
     const { data } = await axios.get(`https://api.jikan.moe/v4/manga/${id}/pictures`)
@@ -44,6 +46,10 @@ const MangaPage: React.FC<iProps> = ({ manga, statistic, recommendations }) => {
       getImages()
       getCharacters()
     }, 1500);
+    const dataManga = localStorage.getItem('manga')
+    if (typeof dataManga === 'string') {
+      setSavedManga(JSON.parse(dataManga));
+    }
   }, [id])
 
   const redirectToGenres = (genreId) => {
@@ -60,6 +66,28 @@ const MangaPage: React.FC<iProps> = ({ manga, statistic, recommendations }) => {
     })
   }
 
+
+  const savedToMe = (id: string, img: string, title: string): void => {
+    const data = {
+      id,
+      img,
+      title
+    }
+    if (savedManga !== null || false) {
+      if (savedManga.filter(manga => manga.id == id).length > 0) {
+        setSavedManga(savedManga.filter((element) => element.id != id))
+        localStorage.setItem("manga", JSON.stringify(savedManga.filter((element) => element.id != id)))
+      } else {
+        setSavedManga([...new Set([...savedManga, data])])
+        localStorage.setItem("manga", JSON.stringify([...new Set([...savedManga, data])]))
+      }
+    }
+    else {
+      localStorage.setItem("manga", JSON.stringify([data]))
+    }
+  }
+
+
   return (<>
     <Layout title={manga.title} >
       <div className={styles.bodyPage}>
@@ -71,6 +99,11 @@ const MangaPage: React.FC<iProps> = ({ manga, statistic, recommendations }) => {
         <div className={styles.containTitle}>
           <div className={styles.up}>
             <ItemUpContent styles={styles} content={manga} redirectToGenres={redirectToGenres} />
+            {savedManga &&
+              savedManga.filter(manga => manga.id == id).length > 0
+              ? <AiFillStar className={styles.starIcon} onClick={() => savedToMe(manga.mal_id, manga.images.jpg.image_url, manga.title)} />
+              : <AiOutlineStar className={styles.starIcon} onClick={() => savedToMe(manga.mal_id, manga.images.jpg.image_url, manga.title)} />
+            }
           </div>
           <div className={styles.down}>
             <div className={styles.left}>

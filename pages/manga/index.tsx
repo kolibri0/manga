@@ -42,6 +42,7 @@ const Home = ({ manga, pagination }) => {
     }
   }, [page, serchMangaText])
 
+
   const redirectToGenres = () => {
     router.push(`/manga/genres`)
   }
@@ -105,6 +106,8 @@ const Home = ({ manga, pagination }) => {
     const { data } = await axios.get(`https://api.jikan.moe/v4/random/manga`)
     router.push(`/manga/${data.data.mal_id}`)
   }
+
+
 
   const checkMangaTypeUrl = () => router.query.type ? true : false
   return (

@@ -4,7 +4,7 @@ import '../types.d.ts'
 import { ImHome } from 'react-icons/im'
 import { useRouter } from 'next/router';
 
-const types = ['manga', 'anime']
+const types = ['manga', 'anime', 'saved']
 
 interface IProps {
   redirectToType: (type: string) => void
