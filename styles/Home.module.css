@@ -1,0 +1,50 @@
+.container{
+  color: white;
+  width: 1000px;
+  margin: 40px auto;
+}
+.description{
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.api{
+  margin-bottom: 10px;
+}
+.link{
+  font-size: 19px;
+  color: rgb(255, 179, 0);
+  text-decoration: underline !important;
+}
+.technologies{
+  font-size: 20px;
+}
+.ul{
+  margin-top: 5px;
+  font-size: 18px;
+  margin-left: 0;
+  padding-left: 10px;
+}
+.li{
+  lighting-color: red;
+
+}
+@media (max-width: 768px) {
+  .container{
+    width: 750px;
+  }
+}
+@media (max-width: 480px) {
+  .container{
+    width: 450px;
+  }
+}
+@media (max-width: 320px) {
+  .container{
+    width: 300px;
+  }
+  .technologies{
+    font-size: 19px;
+  }
+}
+
+

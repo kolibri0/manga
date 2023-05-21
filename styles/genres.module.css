@@ -360,7 +360,6 @@ input.radio[type="radio"]:checked{
     padding: 5px;
     height: 40px;
     background-color: rgb(43, 43, 43);
- 
   }
 }
 @media (max-width: 1280px) {
