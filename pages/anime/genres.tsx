@@ -2,7 +2,6 @@ import axios from 'axios';
 import { GetServerSideProps } from 'next/types';
 import * as React from 'react';
 import styles from '../../styles/genres.module.css'
-import Menu from '../../components/Menu'
 import { useRouter } from 'next/router';
 import { MdKeyboardArrowDown, MdKeyboardArrowRight } from 'react-icons/md';
 import ReactPaginate from 'react-paginate';
@@ -55,10 +54,6 @@ const Genres = ({ genres, anime, pagination }) => {
       })
     }
   }, [page])
-
-  const redirectToType = (type) => {
-    router.push(`/${type}`)
-  }
 
   const onOptionChange = (type) => {
     setSelectedType(type)

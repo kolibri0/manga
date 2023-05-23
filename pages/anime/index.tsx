@@ -99,20 +99,6 @@ const AnimeHome = ({ anime, pagination }) => {
     setSerachAnimeText('')
   }
 
-  const redirectToGenres2 = () => {
-    router.push({
-      pathname: '/anime/genres',
-      query: {
-        genres: 32,
-        type: '',
-        order_by: '',
-        sort: '',
-        letter: '',
-        page: 0
-      }
-    })
-  }
-
   const checkAnimeTypeUrl = () => router.query.type ? true : false
 
   return (

@@ -6,7 +6,6 @@ import styles from '../../styles/itemPage.module.css'
 import '../../types.d.ts'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Menu from '../../components/Menu'
 import ItemStatistic from '../../components/ItemStatistic';
 import ItemUpContent from '../../components/ItemUpContent';
 import SelectedTypeBlock from '../../components/SelectedTypeBlock'

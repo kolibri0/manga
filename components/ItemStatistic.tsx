@@ -13,7 +13,6 @@ const ItemStatistic: React.FC<IProps> = ({ styles, content, contentType, statist
       <div className={styles.cardItem}>Type: {content.type}</div>
       <div className={styles.cardItem}>{content.status}</div>
       <div className={styles.cardItem}>Favorites: {content.favorites}</div>
-      {/* <div className={styles.cardItem}>Chapters: {manga.chapters ?? 'No info'}</div> */}
       <div className={styles.cardItem}>{contentType == 'manga'
         ? `Chapters: ${content.chapters ?? 'No info'}`
         : `Episodes: ${content.episodes ?? 'No info'}`

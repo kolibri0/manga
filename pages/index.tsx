@@ -1,14 +1,8 @@
 import * as React from 'react';
 import Layout from '../components/Layout';
-import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css'
 
 const Homa = () => {
-  const router = useRouter()
-
-  const redirectToType = (type) => {
-    router.push(`/${type}`)
-  }
   return (<>
     <Layout title='Home'>
       <div className={styles.container}>

@@ -5,7 +5,6 @@
 .containManga{
   display: flex;
   margin: 40px 0 0 290px;
-  /* border: 1px solid red; */
   justify-content: center;
   color: white;
 }
@@ -18,7 +17,6 @@
   background-color: rgb(24, 24, 24);
 }
 .mangaNav{
-  /* border: 1px solid green; */
   padding: 20px 10px 0 35px;
   width: 280px;
   position: fixed;
@@ -29,14 +27,12 @@
   height: 100%;
 }
 .containGrid{
-  /* border: 1px solid red; */
   display: grid;
   grid-template-columns: repeat(4, 180px);
   justify-content: left;
   padding-left: 25px;
   gap: 10px;
   width: 900px;
-  /* margin: 0 auto; */
 }
 .containSearch{
   position: relative;
@@ -56,7 +52,6 @@
   right: -5px;
   top: -5px;
   border: none;
-  /* border: 1px solid red; */
   align-items: center;
   text-align: center;
   padding: 1px;
@@ -76,7 +71,6 @@
 }
 .navItem{
   cursor: pointer;
-  /* position: relative; */
   font-size: 18px;
   margin-bottom: 2px;
   padding: 3px 8px;
@@ -98,9 +92,7 @@
   width: 179px;
   cursor: pointer;
 }
-/* .img:hover{
-  opacity: 0.1;
-} */
+
 .containImg{
   height: 255px;
   width: 179px;
@@ -133,9 +125,7 @@
 .type{
   margin-bottom: 5px;
 }
-.synopsis{
-  /* font-style: italic; */
-}
+
 .containImg:hover .descriptionBody{
   bottom: -1px;
   visibility: visible;
@@ -215,8 +205,6 @@
   .containGrid{
     grid-template-columns: repeat(3, 160px);
     width: 600px;
-    /* padding-left: 10px; */
-    /* justify-content: center; */
   }
   .container{
     width: 600px;
@@ -266,7 +254,6 @@
   }
   .mangaNav{
     width: 180px;
-    /* padding: 25px 10px; */
     position: relative;
     margin-top: 10px;
     border-radius: 5px;
@@ -321,7 +308,6 @@
   }
   .mangaNav{
     width: 180px;
-    /* padding: 25px 10px; */
     position: relative;
     margin-top: 10px;
     border-radius: 5px;

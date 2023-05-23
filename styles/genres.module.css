@@ -1,17 +1,15 @@
 .container{
-  /* border: 1px solid red; */
   width: 1200px;
   margin: 40px auto 0;
   color: white;
 }
 .containGenres{
-  /* border: 1px solid red; */
+
   display: flex;
   margin: 0 auto;
   padding: 5px 10px;
 }
 .left{
-  /* border: 1px solid yellow; */
   width: 800px;
   margin-right: 20px;
   padding: 10px 20px;
@@ -91,7 +89,6 @@
   margin-bottom: 5px;
 }
 .containSort{
-  /* border: 1px solid red; */
   padding: 5px 8px;
   justify-content: start;
   position: absolute;
@@ -130,7 +127,6 @@ input.sortRadioBtn[type="radio"]:checked{
 
 
 .right{
-  /* border: 1px solid green; */
   width: 300px;
   background-color: rgb(43, 43, 43);
   border-radius: 5px;
@@ -146,13 +142,11 @@ input.sortRadioBtn[type="radio"]:checked{
 .rightGenresBlock{
   overflow-y: auto;
   height: 490px;
-  /* border: 1px solid red; */
   padding-bottom: 32px;
 }
 .rightGenresBlockSelected{
   overflow-y: auto;
   height: 490px;
-  /* border: 1px solid red; */
   overflow: hidden;
   padding-bottom: 32px;
 }
@@ -172,7 +166,6 @@ input.sortRadioBtn[type="radio"]:checked{
   height: 100%;
   margin-top: 5px;
   margin-bottom: 10px;
-  /* overflow: hidden; */
 }
 .genres{
   cursor: pointer;
@@ -231,9 +224,6 @@ input.genreCheckbox[type="checkbox"]:checked{
   margin-top: 10px;
 }
 
-/* #input[type="radio"]{
-  color: red;
-} */
 input.radio[type="radio"]{
   margin-right: 5px;
   appearance: none;
@@ -251,11 +241,8 @@ input.radio[type="radio"]:checked{
 
 .pagination{
   border: 1px solid white;
-  /* margin-left: 200px;
-  margin-top: 40px; */
   margin: 40px auto 10px;
   max-width:fit-content;
-  /* width: 330px; */
   padding: 3px 32px;
   border-radius: 10px;
   justify-content: center;

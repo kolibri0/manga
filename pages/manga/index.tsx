@@ -3,8 +3,6 @@ import axios from 'axios'
 import { GetServerSideProps } from 'next/types';
 import styles from '../../styles/CardItem.module.css'
 import '../../types.d.ts'
-import Link from 'next/link'
-import Menu from '../../components/Menu';
 import { useRouter } from 'next/router';
 import { BiSearchAlt2 } from 'react-icons/bi'
 import ReactPaginate from 'react-paginate';

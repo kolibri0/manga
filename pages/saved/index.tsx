@@ -1,12 +1,9 @@
 import * as React from 'react';
 import Layout from '../../components/Layout'
 import styles from '../../styles/saved.module.css'
-import ContentItem from '../../components/ContentItem';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 const Saved = () => {
-  const router = useRouter()
 
   const [selectedType, setSelectedType] = React.useState('')
   const [anime, setAnime] = React.useState<null | any[]>(null)
@@ -22,13 +19,8 @@ const Saved = () => {
       setManga(JSON.parse(dataManga));
     }
   }, [])
-  console.log(manga)
-  const redirectToItem = (id: string) => {
-    router.push(`/manga/${id}`)
-  }
   return (
     <Layout title='Saved'>
-      {/* <div> */}
       <div className={styles.container}>
         <div className={styles.mangaNav}>
           <div className={styles.navItems}>
@@ -59,7 +51,6 @@ const Saved = () => {
           }
         </div>
       </div>
-      {/* </div> */}
     </Layout>
   );
 }

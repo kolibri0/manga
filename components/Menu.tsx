@@ -13,8 +13,10 @@ interface IProps {
 const Menu: React.FC<IProps> = ({ redirectToType }) => {
   const router = useRouter()
   const [selectedType, setSelectedType] = React.useState('')
+  const type = router.pathname.split('/').slice(1)[0]
   React.useEffect(() => {
-    setSelectedType(router.pathname.split('/').slice(1)[0])
+    // setSelectedType(router.pathname.split('/').slice(1)[0])
+    setSelectedType(type)
   }, [])
   return (<>
     <div className={styles.container}>
