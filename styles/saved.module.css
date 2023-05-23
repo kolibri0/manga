@@ -66,3 +66,84 @@
 .title:hover{
   color: rgb(252, 181, 39);
 }
+
+@media (max-width: 1024px) {
+  .containGrid{
+    grid-template-columns: repeat(3, 180px);
+    width: 850px;
+  }
+  .container{
+    width: 1000px;
+  }
+}
+
+@media (max-width: 768px) {
+  .containGrid{
+    grid-template-columns: repeat(2, 160px);
+    margin-left: 0;
+    padding-left: 200px;
+    width: 700px;
+  }
+  .container{
+    width: 600px;
+  }
+}
+
+@media (max-width: 600px) {
+  .containGrid{
+    grid-template-columns: repeat(2, 160px);
+    margin-left: 0;
+    padding-left: 200px;
+    width: 400px;
+  }
+  .container{
+    width: 500px;
+  }
+  .mangaNav{
+    width: 140px;
+  }
+}
+
+@media (max-width: 480px){
+  .containGrid{
+    grid-template-columns: repeat(1, 160px);
+    margin-left: 0;
+    padding-left: 50px;
+    width: 160px;
+    justify-content: start;
+    margin: 45px auto 0;
+  }
+  .container{
+    width: 400px;
+  }
+}
+@media (max-width: 320px){
+  .containGrid{
+    grid-template-columns: repeat(1, 160px);
+    margin-left: 0;
+    padding-left: 50px;
+    width: 160px;
+    justify-content: start;
+    margin: 45px auto 0;
+  }
+  .container{
+    width: 200px;
+  }
+  .mangaNav{
+    padding: 10px 5px;
+    width: 100px;
+  }
+  .navItem{
+    font-size: 15px;
+    width: 75px;
+  }
+  .navItemSelected{
+    font-size: 15px;
+    width: 75px;
+  }
+}
+
+
+
+
+

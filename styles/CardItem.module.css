@@ -190,7 +190,16 @@
     padding-left: 0;
   } 
   .container{
-    width: 1300px;
+    width: 1400px;
+  }
+}
+@media (max-width: 1280px) {
+  .containGrid{
+    grid-template-columns: repeat(4, 180px);
+    width: 850px;
+  }
+  .container{
+    width: 1000px;
   }
 }
 @media (max-width: 1024px) {

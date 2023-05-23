@@ -59,11 +59,29 @@
 
 @media (max-width: 320px){
   .left{
-    width: 100px;
+    width: 80px;
     padding-left: 10px;
+    align-items: center;
+    font-size: 15px;
   }
   .right{
     width: 100px;
     padding-left: 30px;
+    font-size: 16px;
+  }
+  .type{
+    margin-right: 15px;
+    padding: 2px 7px;
+    cursor: pointer;
+    border-bottom: 1px solid rgb(43, 43, 43);
+    font-size: 15px;
+  }
+  .typeActive{
+    margin-right: 15px;
+    padding: 2px 7px;
+    border-bottom: 1px solid rgb(255, 179, 0);
+    color: rgb(255, 179, 0);
+    cursor: pointer;
+    font-size: 15px;
   }
 }

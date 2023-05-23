@@ -31,7 +31,6 @@ const Saved = () => {
       {/* <div> */}
       <div className={styles.container}>
         <div className={styles.mangaNav}>
-          <div className={styles.hr} />
           <div className={styles.navItems}>
             <div className={selectedType === 'manga' ? styles.navItemSelected : styles.navItem} onClick={() => setSelectedType('manga')}>Manga</div>
             <div className={selectedType === 'anime' ? styles.navItemSelected : styles.navItem} onClick={() => setSelectedType('anime')}>Anime</div>

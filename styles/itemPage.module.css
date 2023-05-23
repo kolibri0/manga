@@ -327,6 +327,17 @@
     margin-bottom: 5px;
     margin: 0 auto;
   }
+  .genres{
+    width: 285px;
+    margin: 10px auto;
+    display: grid; 
+    grid-template-columns: repeat(3, 90px);
+    gap: 10px;
+    text-align: center;
+  }
+  .genre{
+    align-items: center;
+  }
 }
 
 
