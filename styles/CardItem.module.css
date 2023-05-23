@@ -257,10 +257,60 @@
     position: relative;
     margin-top: 10px;
     border-radius: 5px;
-    width: 320px;
+    width: 295px;
     justify-content: center;
     text-align: center;
     height: 155px;
+    z-index: 12;
+    margin-bottom: 50px;
+  }
+  .containManga{
+    display: block;
+    margin: 0 auto;
+  }
+  .container{
+    width: 300px;
+    margin: 0 auto;
+  }
+  .containSearch{
+    position: relative;
+    margin-bottom: 10px;
+    width: 250px;
+    margin: 0 auto 10px;
+  }
+  .searchInput{
+    width: 250px;
+  }
+  .pagination{
+    width: 300px;
+    max-width: 300px;
+    font-size: 13px;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 375px){
+  .containGrid{
+    grid-template-columns: repeat(2, 160px);
+    margin-left: 0;
+    padding-left: 0;
+    width: 320px;
+    justify-content: start;
+    margin: 0 auto;
+  }
+  .hr{
+    display: none;
+  }
+  .mangaNav{
+    width: 180px;
+    position: relative;
+    margin-top: 10px;
+    border-radius: 5px;
+    width: 320px;
+    justify-content: center;
+    text-align: center;
+    height: 165px;
     z-index: 12;
     margin-bottom: 50px;
   }
