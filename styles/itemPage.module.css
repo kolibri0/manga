@@ -253,6 +253,8 @@
   }
   .synopsis{
     width: 440px;
+    height: 300px;
+    overflow-y: auto;
   }
   .type{
     width: 420px;
